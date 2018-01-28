@@ -23,8 +23,22 @@ cd ~/.dotfiles
 This will symlink the appropriate files in `.dotfiles` to your home directory.
 Everything is configured and tweaked within `~/.dotfiles`.
 
+Afterwards run this:
+
+```sh
+cd ~/.dotfiles
+./bin/dot
+```
+
+Last but not least:
+
+```sh
+cd ~/.dotfiles
+./macos/settings.sh
+```
+
 ## Credits
 
-Started as fork of [holman's dotfiles](https://github.com/holman/dotfiles) but removed a lot of magic in [`zsh/zshrc.symlink`](./zsh/zshrc.symlink) to just manually source other `zsh` files. Also removed the `install` script and moved `bootstrap` into the root folder.
+Started as fork of [matz3's dotfiles](https://github.com/matz3/dotfiles) but removed some not needed tools and added another shell prompt and plugins.
 
 [OS X settings](./macos/settings.sh) are based on [mathiasbynens' dotfiles](https://github.com/mathiasbynens/dotfiles/blob/master/.macos).
