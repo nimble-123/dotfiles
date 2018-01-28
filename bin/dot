@@ -12,3 +12,18 @@ source $ZSH/homebrew/env.zsh
 
 # Update homebrew
 $ZSH/homebrew/update.sh
+
+# Install oh-my-zsh with powerlevel9k theme
+[ -d ~/.oh-my-zsh ] || git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+[ -d ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting ] || git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+[ -d ~/.oh-my-zsh/custom/themes/powerlevel9k ] || git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+
+# Install nvm and latest stable node
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
+
+# Install essential npm global packages
+npm install -g npm gulp eslint less prettier
+
+# Install beautiful colorls ruby gem
+gem install colorls
+
