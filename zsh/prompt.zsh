@@ -1,5 +1,5 @@
 # settings for oh-my-zsh plugins, theme and prompt
-export OHMYZSH=$HOME/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 TERM=xterm-256color
 ZSH_THEME="powerlevel9k/powerlevel9k"
 POWERLEVEL9K_MODE='awesome-fontconfig'
@@ -42,5 +42,5 @@ POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context os_icon ssh root_indicator dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(command_execution_time  status rvm time)
 
 ENABLE_CORRECTION="false"
-plugins=(git git-extras gem ruby rbenv osx sudo sublime colorize history history-substring-search last-working-dir compleat zsh-completions zsh-history-substring-search zsh-autosuggestions zsh-syntax-highlighting zsh-syntax-highlighting-filetypes warhol)
-source $OHMYZSH/oh-my-zsh.sh
+plugins=(git git-extras zsh-nvm rbenv gem ruby osx sudo colorize history history-substring-search last-working-dir compleat zsh-completions zsh-history-substring-search zsh-autosuggestions zsh-syntax-highlighting zsh-syntax-highlighting-filetypes warhol)
+source $ZSH/oh-my-zsh.sh

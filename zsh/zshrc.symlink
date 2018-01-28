@@ -39,9 +39,9 @@ source $ZSH/python/init.zsh
 # Xcode
 source $ZSH/xcode/aliases.zsh
 
-# Prompt
-source $ZSH/zsh/prompt.zsh
-
 # Autocomplete
 source $ZSH/zsh/completion.zsh
 source $ZSH/git/completion.zsh
+
+# Prompt
+source $ZSH/zsh/prompt.zsh
