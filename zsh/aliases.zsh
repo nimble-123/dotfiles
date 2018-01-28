@@ -7,3 +7,8 @@ alias nis='npm install --save'
 alias such='git'
 alias very='git'
 alias wow='git status -sb'
+
+alias cd..='cd ..'
+alias ls='colorls --sd --gs --report -1'
+alias lsa='colorls --sd --gs -lA'
+alias lst='colorls --sd --gs -t'
