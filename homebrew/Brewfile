@@ -37,5 +37,6 @@ cask 'vlc'
 cask 'caskroom/drivers/synology-drive'
 cask 'caskroom/fonts/font-hack-nerd-font'
 
+mas 'Lightshot Screenshot', id: 526298438
 mas 'MoneyMoney', id: 872698314
 mas 'Moom', id: 419330170
