@@ -19,12 +19,12 @@ $ZSH/homebrew/update.sh
 [ -d ~/.oh-my-zsh/custom/plugins/zsh-nvm ] || git clone https://github.com/lukechilds/zsh-nvm ~/.oh-my-zsh/custom/plugins/zsh-nvm
 [ -d ~/.oh-my-zsh/custom/themes/powerlevel9k ] || git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
 
+# Install beautiful colorls ruby gem
+gem install colorls
+
 # Install latest stable node
+source $HOME/.zshrc
 nvm install stable
 
 # Install essential npm global packages
 npm install -g npm gulp eslint less prettier
-
-# Install beautiful colorls ruby gem
-gem install colorls
-
