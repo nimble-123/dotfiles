@@ -5,6 +5,7 @@ fpath=($ZSH/functions $fpath)
 
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
+HIST_STAMPS="mm/dd/yyyy"
 SAVEHIST=10000
 
 setopt NO_BG_NICE # don't nice background tasks
@@ -38,3 +39,5 @@ bindkey '^[[5C' end-of-line
 bindkey '^[[3~' delete-char
 bindkey '^[^N' newtab
 bindkey '^?' backward-delete-char
+bindkey '\e[A' history-beginning-search-backward
+bindkey '\e[B' history-beginning-search-forward
