@@ -3,7 +3,7 @@
 	path = ~/.gitconfig.local
 [core]
 	autocrlf = input
-	editor = vim
+	editor = code --wait
 [pull]
 	rebase = true
 [push]
