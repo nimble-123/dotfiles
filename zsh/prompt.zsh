@@ -43,4 +43,6 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(command_execution_time  status rvm time)
 
 ENABLE_CORRECTION="false"
 plugins=(git git-extras zsh-nvm rbenv gem ruby osx sudo colorize history history-substring-search last-working-dir compleat zsh-completions zsh-history-substring-search zsh-autosuggestions zsh-syntax-highlighting zsh-syntax-highlighting-filetypes warhol)
+save_aliases=$(alias -L)
 source $ZSH/oh-my-zsh.sh
+eval $save_aliases; unset save_aliases
