@@ -34,6 +34,7 @@ cask 'rescuetime'
 cask 'spotify'
 cask 'visual-studio-code'
 cask 'vlc'
+cask 'webstorm'
 cask 'caskroom/drivers/synology-drive'
 cask 'caskroom/fonts/font-hack-nerd-font'
 
