@@ -12,3 +12,5 @@ alias cd..='cd ..'
 alias ls='colorls --sd --gs --report -1'
 alias lsa='colorls --sd --gs -lA'
 alias lst='colorls --sd --gs --tree'
+
+alias chrome_dis='open -a Google\ Chrome --args --disable-web-security --user-data-dir'
