@@ -23,6 +23,7 @@ brew 'zsh'
 
 cask '1password'
 cask 'cyberduck'
+cask 'docker'
 cask 'dropbox'
 cask 'eclipse-java'
 cask 'etcher'
