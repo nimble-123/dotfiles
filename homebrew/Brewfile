@@ -37,6 +37,9 @@ cask 'vlc'
 cask 'webstorm'
 cask 'caskroom/drivers/synology-drive'
 cask 'caskroom/fonts/font-hack-nerd-font'
+cask 'caskroom/fonts/font-fira-sans'
+cask 'caskroom/fonts/font-fira-mono'
+cask 'caskroom/fonts/font-fira-code'
 
 mas 'Amphetamine', id: 937984704
 mas 'Lightshot Screenshot', id: 526298438
