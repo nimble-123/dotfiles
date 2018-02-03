@@ -29,3 +29,7 @@ nvm install stable
 
 # Install essential npm global packages
 npm install -g npm gulp eslint less prettier
+
+# Install vscode extensions
+$ZSH/vscode/install_extensions.sh
+ln -s $ZSH/vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
