@@ -516,7 +516,7 @@ defaults write com.apple.terminal StringEncodings -array 4
 defaults write com.apple.terminal FocusFollowsMouse -bool true
 
 # Specify the preferences directory
-defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "~/.dotfiles/macos"
+defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "~/.dotfiles/iterm2"
 
 # Tell iTerm2 to use the custom preferences in the directory
 defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
