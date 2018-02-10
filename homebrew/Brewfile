@@ -20,6 +20,7 @@ brew 'tree'
 brew 'wget'
 brew 'yarn'
 brew 'zsh'
+brew 'cloudfoundry/tap/cf-cli'
 
 cask '1password'
 cask 'cyberduck'
