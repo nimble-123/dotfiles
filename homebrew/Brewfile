@@ -53,5 +53,6 @@ cask 'caskroom/fonts/font-fira-code'
 mas 'Amphetamine', id: 937984704
 mas 'Bear', id: 1091189122
 mas 'Lightshot Screenshot', id: 526298438
+mas 'Irvue', id: 1039633667
 mas 'MoneyMoney', id: 872698314
 mas 'Moom', id: 419330170
