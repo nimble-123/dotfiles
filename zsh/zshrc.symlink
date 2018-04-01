@@ -23,6 +23,9 @@ source $ZSH/macos/aliases.zsh
 # Homebrew
 source $ZSH/homebrew/env.zsh
 
+# GPG
+source $ZSH/gnupg/init.zsh
+
 # thefuck
 source $ZSH/thefuck/aliases.zsh
 
