@@ -63,3 +63,5 @@
 	remoteBranch = red reverse
 	tag = blue reverse
 	commit = yellow
+[commit]
+	gpgsign = true
