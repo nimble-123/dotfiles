@@ -65,3 +65,5 @@
 	commit = yellow
 [commit]
 	gpgsign = true
+[user]
+	signingkey = D3DD1D70033F6F49
