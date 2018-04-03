@@ -30,4 +30,14 @@
     // Controls the integrated terminal font family.
     "terminal.integrated.fontFamily": "Knack Nerd Font",
     "gitlens.gitExplorer.files.layout": "tree",
+    "gitlens.advanced.messages": {
+        "suppressCommitHasNoPreviousCommitWarning": false,
+        "suppressCommitNotFoundWarning": false,
+        "suppressFileNotUnderSourceControlWarning": false,
+        "suppressGitVersionWarning": false,
+        "suppressLineUncommittedWarning": false,
+        "suppressNoRepositoryWarning": false,
+        "suppressResultsExplorerNotice": false,
+        "suppressShowKeyBindingsNotice": true
+    },
 }
