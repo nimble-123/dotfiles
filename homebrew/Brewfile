@@ -1,6 +1,7 @@
 tap 'caskroom/cask'
 tap 'caskroom/drivers'
 tap 'caskroom/fonts'
+tap 'caskroom/versions'
 tap 'homebrew/bundle'
 tap 'homebrew/core'
 tap 'ethereum/ethereum'
@@ -56,6 +57,7 @@ cask 'caskroom/fonts/font-hack-nerd-font'
 cask 'caskroom/fonts/font-fira-sans'
 cask 'caskroom/fonts/font-fira-mono'
 cask 'caskroom/fonts/font-fira-code'
+cask 'caskroom/versions/openemu-experimental'
 
 mas 'Amphetamine', id: 937984704
 mas 'Bear', id: 1091189122
