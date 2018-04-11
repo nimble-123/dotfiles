@@ -15,3 +15,4 @@ alias lst='colorls --sd --gs --tree'
 
 alias chrome_dis='open -a Google\ Chrome --args --disable-web-security --user-data-dir'
 alias dot='code ~/.dotfiles'
+alias bupgrade='brew update && brew upgrade && brew cask upgrade && brew cleanup && brew cask cleanup'
