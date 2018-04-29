@@ -60,6 +60,7 @@ cask 'caskroom/fonts/font-fira-mono'
 cask 'caskroom/fonts/font-fira-code'
 cask 'caskroom/versions/openemu-experimental'
 
+mas 'Airmail 3', id: 918858936
 mas 'Amphetamine', id: 937984704
 mas 'Bear', id: 1091189122
 mas 'Lightshot Screenshot', id: 526298438
