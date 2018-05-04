@@ -28,7 +28,7 @@ export NVM_DIR="$HOME/.nvm"
 nvm install stable
 
 # Install essential npm global packages
-npm install -g npm gulp eslint less prettier
+npm install -g npm gulp eslint less prettier grunt-cli docsify truffle vue-cli bower dapp-scratch
 
 # Install vscode extensions
 $ZSH/vscode/install_extensions.sh
