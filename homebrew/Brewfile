@@ -2,6 +2,7 @@ tap 'caskroom/cask'
 tap 'caskroom/drivers'
 tap 'caskroom/fonts'
 tap 'caskroom/versions'
+tap 'git-chglog/git-chglog'
 tap 'homebrew/bundle'
 tap 'homebrew/core'
 tap 'ethereum/ethereum'
@@ -16,6 +17,7 @@ brew 'ethstore'
 brew 'ffmpeg'
 brew 'gibo'
 brew 'gource'
+brew 'gradle'
 brew 'go'
 brew 'gti'
 brew 'gist'
@@ -43,18 +45,23 @@ cask 'docker'
 cask 'dropbox'
 cask 'eclipse-java'
 cask 'etcher'
+cask 'ethereum-wallet'
 cask 'franz'
+cask 'ganache'
 cask 'gpg-suite'
 cask 'google-chrome'
 cask 'jabref'
 cask 'kap'
 cask 'kitematic'
 cask 'little-snitch'
+cask 'macpass'
 cask 'mactex'
+cask 'mist'
 cask 'mqttfx'
 cask 'postman'
 cask 'rescuetime'
 cask 'spotify'
+cask 'spotmenu'
 cask 'texstudio'
 cask 'timing'
 cask 'tunnelblick'
@@ -71,7 +78,10 @@ cask 'caskroom/versions/openemu-experimental'
 mas 'Airmail 3', id: 918858936
 mas 'Amphetamine', id: 937984704
 mas 'Bear', id: 1091189122
-mas 'Lightshot Screenshot', id: 526298438
 mas 'Irvue', id: 1039633667
+mas 'Lightshot Screenshot', id: 526298438
 mas 'MoneyMoney', id: 872698314
 mas 'Moom', id: 419330170
+mas 'Photos Duplicate Cleaner', id: 592704001
+mas 'The Unarchiver', id: 425424353
+mas 'TweetDeck', id: 485812721
