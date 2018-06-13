@@ -67,10 +67,14 @@
 	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>2515 123 723 358 1920 -240 3440 1418 </string>
+	<key>NSWindow Frame SUUpdateAlert</key>
+	<string>3312 529 620 392 1920 -240 3440 1418 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>2009 123 918 492 1920 -240 3440 1418 </string>
+	<string>3092 -61 796 473 1920 -240 3440 1418 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>4157 -14 970 507 1920 -240 3440 1418 </string>
+	<string>4287 -118 970 507 1920 -240 3440 1418 </string>
+	<key>NSWindow Frame iTerm Window 1</key>
+	<string>4150 133 970 811 1920 -240 3440 1418 </string>
 	<key>NeverWarnAboutShortLivedSessions_EBD0C8CA-971C-435B-AD71-F8B2774876F7</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_EBD0C8CA-971C-435B-AD71-F8B2774876F7_selection</key>
@@ -761,6 +765,8 @@
 	<false/>
 	<key>QuitWhenAllWindowsClosed</key>
 	<true/>
+	<key>SUAutomaticallyUpdate</key>
+	<true/>
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
 	<key>SUFeedAlternateAppNameKey</key>
@@ -770,12 +776,12 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-04-02T14:57:20Z</date>
+	<date>2018-06-13T09:58:45Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>WordCharacters</key>
 	<string>/-+\~_.</string>
 	<key>iTerm Version</key>
-	<string>3.1.5</string>
+	<string>3.1.6</string>
 </dict>
 </plist>
