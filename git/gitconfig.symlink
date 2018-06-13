@@ -8,6 +8,7 @@
 	rebase = true
 [push]
 	default = simple
+	followTags = true
 [alias]
 	co = checkout
 	cob = checkout -b
