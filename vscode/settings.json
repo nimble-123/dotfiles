@@ -2,7 +2,7 @@
     "explorer.confirmDelete": false,
     "git.autofetch": true,
     "workbench.iconTheme": "material-icon-theme",
-    "workbench.colorTheme": "Material Theme",
+    "workbench.colorTheme": "Visual Studio Dark",
     "materialTheme.cache.workbench.settings": {
         "themeColours": "Darker",
         "accent": "Lime"
@@ -41,4 +41,5 @@
         "suppressShowKeyBindingsNotice": true
     },
     "explorer.confirmDragAndDrop": false,
+    "gitlens.historyExplorer.enabled": false,
 }
