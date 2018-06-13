@@ -42,4 +42,5 @@
     },
     "explorer.confirmDragAndDrop": false,
     "gitlens.historyExplorer.enabled": false,
+    "latex-workshop.view.pdf.viewer": "browser",
 }

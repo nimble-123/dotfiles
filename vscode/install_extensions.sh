@@ -1,13 +1,26 @@
 code --install-extension \
   EditorConfig.EditorConfig \
   Equinusocio.vsc-material-theme \
+  JuanBlanco.solidity \
   PKief.material-icon-theme \
   PeterJausovec.vscode-docker \
   Zignd.html-css-class-completion \
   christian-kohler.path-intellisense \
+  codezombiech.gitignore \
   dbaeumer.vscode-eslint \
   eamodio.gitlens \
   esbenp.prettier-vscode \
+  formulahendry.auto-close-tag \
   formulahendry.terminal \
+  James-Yu.latex-workshop \
+  jebbs.plantuml \
   joelday.docthis \
-  mikestead.dotenv
+  mikestead.dotenv \
+  MS-CEINTL.vscode-language-pack-de \
+  octref.vetur \
+  redhat.java \
+  vscjava.vscode-java-debug \
+  vscjava.vscode-java-pack \
+  vscjava.vscode-java-test \
+  vscjava.vscode-maven \
+  zhouronghui.propertylist \
