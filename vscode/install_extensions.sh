@@ -1,6 +1,8 @@
 code --install-extension \
   EditorConfig.EditorConfig \
   Equinusocio.vsc-material-theme \
+  Hirse.vscode-ungit \
+  James-Yu.latex-workshop \
   JuanBlanco.solidity \
   PKief.material-icon-theme \
   PeterJausovec.vscode-docker \
@@ -15,6 +17,7 @@ code --install-extension \
   James-Yu.latex-workshop \
   jebbs.plantuml \
   joelday.docthis \
+  michalkozubik.ui5-explorer \
   mikestead.dotenv \
   MS-CEINTL.vscode-language-pack-de \
   octref.vetur \
