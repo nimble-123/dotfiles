@@ -10,6 +10,7 @@ tap 'paritytech/paritytech'
 
 cask 'java'
 
+brew 'awscli'
 brew 'cowthink'
 brew 'cmatrix'
 brew 'diff-so-fancy'

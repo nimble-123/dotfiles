@@ -46,6 +46,7 @@ source $ZSH/xcode/aliases.zsh
 # Autocomplete
 source $ZSH/zsh/completion.zsh
 source $ZSH/git/completion.zsh
+source ~/.homebrew/share/zsh/site-functions/aws_zsh_completer.sh
 
 # Prompt
 source $ZSH/zsh/prompt.zsh
