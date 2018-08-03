@@ -15,6 +15,7 @@ brew 'cowthink'
 brew 'cmatrix'
 brew 'diff-so-fancy'
 brew 'ethabi'
+brew 'ethereum'
 brew 'ethkey'
 brew 'ethstore'
 brew 'ffmpeg'
@@ -87,6 +88,7 @@ mas 'Amphetamine', id: 937984704
 mas 'Bear', id: 1091189122
 mas 'Irvue', id: 1039633667
 mas 'Lightshot Screenshot', id: 526298438
+mas 'Microsoft Remote Desktop', id: 715768417
 mas 'MoneyMoney', id: 872698314
 mas 'Moom', id: 419330170
 mas 'Photos Duplicate Cleaner', id: 592704001
