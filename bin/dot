@@ -29,10 +29,12 @@ nvm install stable
 
 # Install essential npm global packages
 npm install -g \
+  npm \
   @ui5/cli \
   bower \
   commitizen \
   cz-conventional-changelog \
+  cz-gitmoji-changelog \
   dapp-scratch \
   docsify-cli \
   eslint \
@@ -47,8 +49,6 @@ npm install -g \
   ungit \
   vue-cli \
   yo
-
-echo '{ "path": "cz-conventional-changelog" }' > ~/.czrc
 
 # Install vscode extensions
 $ZSH/vscode/install_extensions.sh
