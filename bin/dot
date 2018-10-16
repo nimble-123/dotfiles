@@ -20,6 +20,8 @@ $ZSH/homebrew/update.sh
 [ -d ~/.oh-my-zsh/custom/themes/powerlevel9k ] || git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
 
 # Install beautiful colorls ruby gem
+source $ZSH/ruby/env.zsh
+source $ZSH/ruby/init.zsh
 gem install colorls
 
 # Install latest stable node
@@ -52,4 +54,5 @@ npm install -g \
 
 # Install vscode extensions
 $ZSH/vscode/install_extensions.sh
+rm -rf ~/Library/Application\ Support/Code/User/settings.json
 ln -s $ZSH/vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
