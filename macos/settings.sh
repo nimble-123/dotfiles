@@ -360,6 +360,51 @@ defaults write com.apple.dock showhidden -bool true
 # Add a spacer to the right side of the Dock (where the Trash is)
 #defaults write com.apple.dock persistent-others -array-add '{tile-data={}; tile-type="spacer-tile";}'
 
+# Add installed applications to dock with spacer for app groups
+# Clear Dock
+dockutil --remove all
+
+## Default applications
+dockuitl --add '/Applications/Launchpad.app' --after 'Finder' --allhomes
+dockuitl --add '/Applications/1password.app' --after 'Launchpad' --allhomes
+dockuitl --add '/Applications/Google Chrome.app' --after '1password' --allhomes
+
+## Office applications
+dockuitl --add '/Applications/Texstudio.app' --after 'Google Chrome' --allhomes
+dockuitl --add '/Applications/Microsoft Word.app' --after 'Texstudio' --allhomes
+dockuitl --add '/Applications/Microsoft Excel.app' --after 'Microsoft Word' --allhomes
+dockuitl --add '/Applications/Microsoft Powerpoint.app' --after 'Microsoft Excel' --allhomes
+
+## Collaboration applications
+dockuitl --add '/Applications/Microsoft Outlook.app' --after 'Microsoft Powerpoint' --allhomes
+dockuitl --add '/Applications/Microsoft OneNote.app' --after 'Microsoft Outlook' --allhomes
+dockuitl --add '/Applications/Microsoft Teams.app' --after 'Microsoft OneNote' --allhomes
+dockuitl --add '/Applications/Franz.app' --after 'Microsoft Teams' --allhomes
+dockuitl --add '/Applications/Skype.app' --after 'Franz' --allhomes
+dockuitl --add '/Applications/FaceTime.app' --after 'Skype' --allhomes
+
+## Development applications
+dockuitl --add '/Applications/SAP Clients/SAPGUI 7.50rev1/SAPGUI 7.50rev1.app' --after 'FaceTime' --allhomes
+dockuitl --add '/Applications/Visual Studio Code.app' --after 'SAPGUI 7.50rev1' --allhomes
+dockuitl --add '/Applications/Eclipse Java.app' --after 'Visual Studio Code' --allhomes
+dockuitl --add '/Applications/WebStorm.app' --after 'Eclipse Java' --allhomes
+dockuitl --add '/Applications/Postman.app' --after 'WebStorm' --allhomes
+dockuitl --add '/Applications/MQTT.fx.app' --after 'Postman' --allhomes
+dockuitl --add '/Applications/Cyberduck.app' --after 'MQTT.fx' --allhomes
+dockuitl --add '/Applications/Kitematic.app' --after 'Cyberduck' --allhomes
+dockuitl --add '/Applications/iterm2.app' --after 'Kitematic' --allhomes
+
+## Utilities applications
+dockuitl --add '/Applications/App Store.app' --after 'iterm2' --allhomes
+dockuitl --add '/Applications/System Preferences.app' --after 'App Store' --allhomes
+dockutil --add '~/Downloads' --view grid --display folder --after 'System Preferences' --allhomes
+
+## Add spacer for structure
+dockutil --add '' --type spacer --section apps --after 'Google Chrome'
+dockutil --add '' --type spacer --section apps --after 'Microsoft Powerpoint'
+dockutil --add '' --type spacer --section apps --after 'FaceTime'
+dockutil --add '' --type spacer --section apps --after 'iterm2'
+
 # Hot corners
 # Possible values:
 #  0: no-op
