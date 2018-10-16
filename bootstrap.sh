@@ -140,9 +140,21 @@ install_dotfiles () {
 	done
 }
 
+install_chrome_extensions () {
+  info 'installing chrome extensions'
+
+  sudo cp -pPR chrome/External\ Extensions /Library/Application\ Support/Google/Chrome/External\ Extensions
+
+  sudo chown -R root:admin /Library/Application\ Support/Google/
+  sudo chmod -R 555 /Library/Application\ Support/Google/
+
+  success 'chrome extensions'
+}
+
 setup_gitconfig
 setup_localrc
 install_dotfiles
+install_chrome_extensions
 
 echo ''
 echo '  All installed!'
