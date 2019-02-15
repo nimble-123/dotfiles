@@ -15,5 +15,5 @@ alias lst='colorls --sd --gs --tree'
 
 alias chrome_dis='open -a Google\ Chrome --args --disable-web-security --user-data-dir'
 alias dot='code ~/.dotfiles'
-alias bupgrade='brew update && brew upgrade && brew cask upgrade && brew cleanup && brew cask cleanup'
+alias bupgrade='brew update && brew upgrade && brew cask upgrade && brew cleanup'
 alias dev-versions='echo "nvm:\t" $(nvm --version) && echo "node:\t" $(node --version) && echo "npm:\t" $(npm --version) && echo "ui5:\t" $(ui5 --version)'
