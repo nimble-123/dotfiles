@@ -9,7 +9,7 @@ alias very='git'
 alias wow='git status -sb'
 
 alias cd..='cd ..'
-alias ls='colorls --sd --gs --report -1'
+alias ls='colorls --sd --gs --report -1 -A'
 alias lsa='colorls --sd --gs -lA'
 alias lst='colorls --sd --gs --tree'
 
