@@ -351,6 +351,10 @@ defaults write com.apple.dock showhidden -bool true
 # Reset Launchpad, but keep the desktop wallpaper intact
 #find "${HOME}/Library/Application Support/Dock" -name "*-*.db" -maxdepth 1 -delete
 
+# Set Launchpad grid to given x,y values
+defaults write com.apple.dock springboard-columns -int 9
+defaults write com.apple.dock springboard-rows -int 9
+
 # Add iOS & Watch Simulator to Launchpad
 #sudo ln -sf "/Applications/Xcode.app/Contents/Developer/Applications/Simulator.app" "/Applications/Simulator.app"
 #sudo ln -sf "/Applications/Xcode.app/Contents/Developer/Applications/Simulator (Watch).app" "/Applications/Simulator (Watch).app"
