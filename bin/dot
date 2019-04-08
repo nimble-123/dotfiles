@@ -36,10 +36,10 @@ nvm install stable
 npm install -g \
   npm \
   @ui5/cli \
-  bower \
   commitizen \
   cz-conventional-changelog \
-  cz-gitmoji-changelog \
+  @commitlint/cli \
+  @commitlint/config-conventional \
   dapp-scratch \
   docsify-cli \
   eslint \
