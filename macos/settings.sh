@@ -401,10 +401,11 @@ dockutil --add '/Applications/WebStorm.app' --after 'Eclipse Java' --allhomes
 dockutil --add '/Applications/Postman.app' --after 'WebStorm' --allhomes
 dockutil --add '/Applications/MQTT.fx.app' --after 'Postman' --allhomes
 dockutil --add '/Applications/Cyberduck.app' --after 'MQTT.fx' --allhomes
+dockutil --add '/Applications/Termius.app' --after 'Cyberduck' --allhomes
+dockutil --add '/Applications/iTerm.app' --after 'Termius' --allhomes
+dockutil --add '/Applications/Kitematic.app' --after 'iTerm' --allhomes
 
 ## Utilities applications
-dockutil --add '/Applications/iTerm.app' --after 'Cyberduck' --allhomes
-dockutil --add '/Applications/Kitematic.app' --after 'iTerm' --allhomes
 dockutil --add '/Applications/App Store.app' --after 'Kitematic' --allhomes
 dockutil --add '/Applications/System Preferences.app' --after 'App Store' --allhomes
 dockutil --add '~/Downloads' --section others --view grid --display folder --allhomes
