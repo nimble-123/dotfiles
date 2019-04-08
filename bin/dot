@@ -16,6 +16,9 @@ $ZSH/homebrew/update.sh
 # Install oh-my-zsh with plugins and powerlevel9k theme
 [ -d ~/.oh-my-zsh ] || git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 [ -d ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting ] || git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+[ -d ~/.oh-my-zsh/custom/plugins/warhol ] || git clone https://github.com/unixorn/warhol.plugin.zsh ~/.oh-my-zsh/custom/plugins/warhol
+[ -d ~/.oh-my-zsh/custom/plugins/zsh-completions ] || git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
+[ -d ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions ] || git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 [ -d ~/.oh-my-zsh/custom/plugins/zsh-nvm ] || git clone https://github.com/lukechilds/zsh-nvm ~/.oh-my-zsh/custom/plugins/zsh-nvm
 [ -d ~/.oh-my-zsh/custom/themes/powerlevel9k ] || git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
 
