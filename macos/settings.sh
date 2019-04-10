@@ -373,6 +373,8 @@ dockutil --add '/Applications/Launchpad.app' --after 'Finder' --allhomes
 dockutil --add '/Applications/1Password 6.app' --after 'Launchpad' --allhomes
 dockutil --add '/Applications/Google Chrome.app' --after '1Password 6' --allhomes
 dockutil --add '/Applications/Mist.app' --after 'Google Chrome' --allhomes
+dockutil --add '/Applications/Twitch.app' --after 'Mist' --allhomes
+dockutil --add '/Applications/Spotify.app' --after 'Twitch' --allhomes
 
 ## Office applications
 dockutil --add '/Applications/Microsoft Word.app' --after 'Mist' --allhomes
