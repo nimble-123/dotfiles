@@ -1,0 +1,33 @@
+{
+  "name": "dotfiles",
+  "version": "1.0.0",
+  "description": "Your dotfiles are how you personalize your system.",
+  "keywords": [
+    "dotfiles",
+    "automation"
+  ],
+  "author": "Nils Lutz <info@nilslutz.de>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nimble-123/dotfiles/issues"
+  },
+  "homepage": "https://github.com/nimble-123/dotfiles#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nimble-123/dotfiles.git"
+  },
+  "scripts": {
+    "release": "standard-version -s",
+    "commit": "git-cz"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "devDependencies": {
+    "commitizen": "^3",
+    "cz-conventional-changelog": "^2",
+    "standard-version": "^5"
+  }
+}

@@ -84,5 +84,9 @@ typings/
 # dotenv environment variables file
 .env
 
+# Local config symlinks
 git/gitconfig.local.symlink
 zsh/localrc.symlink
+
+# Ignore lock file to always get latest packages
+package-lock.json
