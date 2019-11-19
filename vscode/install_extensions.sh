@@ -30,3 +30,4 @@ code --install-extension \
   vscjava.vscode-java-test \
   vscjava.vscode-maven \
   zhouronghui.propertylist \
+  fabiospampinato.vscode-todo-plus \
