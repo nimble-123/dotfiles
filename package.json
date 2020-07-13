@@ -28,6 +28,6 @@
   "devDependencies": {
     "commitizen": "^3",
     "cz-conventional-changelog": "^2",
-    "standard-version": "^5"
+    "standard-version": "^8"
   }
 }
