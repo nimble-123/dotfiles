@@ -46,3 +46,4 @@ add_stack "$HOME/Downloads"
 add_stack "$HOME/Screenshots"
 
 killall Dock >/dev/null 2>&1 || true
+echo "[dock] Dock configuration applied."
