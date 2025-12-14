@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dotfiles - Nils Lutz</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="header-content">
+          <h1>🏡 dotfiles</h1>
+          <p class="subtitle">Meine persönliche macOS-Systemkonfiguration</p>
+          <div class="links">
+            <a
+              href="https://github.com/nimble-123/dotfiles"
+              target="_blank"
+              class="btn btn-primary"
+            >
+              <svg
+                width="20"
+                height="20"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+                />
+              </svg>
+              View on GitHub
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <section class="intro">
+          <h2>⚡ Schnellstart</h2>
+          <div class="code-block">
+            <pre><code># Homebrew installieren
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# chezmoi installieren und dotfiles anwenden
+brew install chezmoi
+chezmoi init --apply https://github.com/nimble-123/dotfiles.git</code></pre>
+          </div>
+        </section>
+
+        <section class="features">
+          <h2>✨ Features</h2>
+          <div class="feature-grid">
+            <div class="feature-card">
+              <div class="feature-icon">🍺</div>
+              <h3>Homebrew</h3>
+              <p>170+ automatisch installierte Pakete und Apps</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon">🐚</div>
+              <h3>Modern Shell</h3>
+              <p>zsh mit starship, zinit und nützlichen Plugins</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon">💻</div>
+              <h3>VS Code</h3>
+              <p>90+ Extensions und benutzerdefinierte Settings</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon">🎨</div>
+              <h3>macOS Setup</h3>
+              <p>Systemeinstellungen und Dock-Layout</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon">⚡</div>
+              <h3>CLI Tools</h3>
+              <p>eza, bat, fzf, ripgrep, zoxide und mehr</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon">🔄</div>
+              <h3>chezmoi</h3>
+              <p>Automatisierte Verwaltung mit chezmoi</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="config-preview">
+          <h2>📝 Konfigurationsbeispiele</h2>
+
+          <div class="config-section">
+            <h3>🐚 Zsh Konfiguration</h3>
+            <div class="code-block">
+              <pre><code># ---- zinit ----
+source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+
+zinit light zsh-users/zsh-autosuggestions
+zinit light zdharma-continuum/fast-syntax-highlighting
+zinit light zsh-users/zsh-completions
+zinit light Aloxaf/fzf-tab
+
+# ---- prompt ----
+eval "$(starship init zsh)"
+
+# ---- navigation ----
+eval "$(zoxide init zsh)"
+
+# ---- quality-of-life ----
+export EDITOR="code -w"
+export FZF_DEFAULT_COMMAND="fd --hidden --follow --exclude .git"</code></pre>
+            </div>
+          </div>
+
+          <div class="config-section">
+            <h3>🔧 Git Konfiguration</h3>
+            <div class="code-block">
+              <pre><code>[user]
+  name = Nils Lutz
+  email = info@nilslutz.de
+
+[core]
+  editor = code --wait
+
+[init]
+  defaultBranch = main
+
+[pull]
+  rebase = true
+
+[alias]
+  s = status -sb
+  lg = log --oneline --decorate --graph -n 20
+  co = checkout
+  cb = checkout -b
+  d = diff
+  ds = diff --staged</code></pre>
+            </div>
+          </div>
+
+          <div class="config-section">
+            <h3>✨ Starship Prompt</h3>
+            <div class="code-block">
+              <pre><code>format = """
+[░▒▓](#a3aed2)\
+[  ](bg:#a3aed2 fg:#090c0c)\
+[](bg:#769ff0 fg:#a3aed2)\
+$directory\
+[](fg:#769ff0 bg:#394260)\
+$git_branch\
+$git_status\
+[](fg:#394260 bg:#212736)\
+$nodejs\
+$rust\
+$golang\
+$php\
+[](fg:#212736 bg:#1d2230)\
+$time\
+[ ](fg:#1d2230)\
+\n$character"""</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <section class="updates">
+          <h2>🔄 Updates</h2>
+          <div class="code-block">
+            <pre><code># Neueste Änderungen holen und anwenden
+chezmoi update
+
+# Oder manuell
+chezmoi git pull && chezmoi apply</code></pre>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <p>
+          Made with ❤️ by
+          <a href="https://github.com/nimble-123" target="_blank">Nils Lutz</a>
+        </p>
+        <p class="powered-by">
+          Powered by
+          <a href="https://www.chezmoi.io/" target="_blank">chezmoi</a>
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>

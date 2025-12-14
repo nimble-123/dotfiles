@@ -2,6 +2,8 @@
 
 > 🏡 Meine persönliche macOS-Systemkonfiguration mit [chezmoi](https://www.chezmoi.io/)
 
+🌐 **[Zur Website →](https://nimble-123.github.io/dotfiles/)**
+
 Automatisierte Einrichtung für:
 
 - 🍺 Homebrew-Pakete und Apps (170+ Einträge)
