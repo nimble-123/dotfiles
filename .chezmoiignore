@@ -4,3 +4,8 @@
 .config/configstore/**
 .ssh/**
 .gnupg/**
+
+docs/**
+README.md
+package.json
+CHANGELOG.md
