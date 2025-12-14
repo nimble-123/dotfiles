@@ -20,30 +20,30 @@ dockutil --remove all --allhomes >/dev/null || true
 dockutil --add "/System/Applications/Launchpad.app" --after "Finder" --allhomes >/dev/null || true
 add_app "/Applications/Microsoft Edge.app" "Launchpad"     # oder Chrome
 add_app "/Applications/Microsoft Outlook.app" "Microsoft Edge"
-add_app "/System/Applications/Calendar.app" "Microsoft Outlook"
-add_app "/Applications/Notion.app" "Calendar"             # oder DEVONthink
+add_app "/Applications/Notion.app" "Microsoft Outlook"
 
 # Comms
-add_app "/Applications/Microsoft Teams.app" "Notion"
-add_app "/Applications/Slack.app" "Microsoft Teams"
+add_app "/Applications/Slack.app" "Notion"
 add_app "/Applications/WhatsApp.app" "Slack"
 add_app "/Applications/Discord.app" "WhatsApp"
 
 # Dev
-add_app "/Applications/Warp.app" "Discord"                # oder iTerm
-add_app "/Applications/Visual Studio Code.app" "Warp"     # oder Cursor
-add_app "/Applications/Docker.app" "Visual Studio Code"
-add_app "/Applications/Postman.app" "Docker"
+add_app "/Applications/Warp.app" "Discord"
+add_app "/Applications/Visual Studio Code.app" "Warp"
+add_app "/Applications/Antigravity.app" "Visual Studio Code"
+add_app "/Applications/Postman.app" "Antigravity"
 
 # Optional daily
 add_app "/Applications/1Password.app" "Postman"
 add_app "/Applications/Spotify.app" "1Password"
+add_app "/Applications/ChatGPT.app" "Spotify"
+add_app "/Applications/App Store.app" "ChatGPT"
+add_app "/Applications/System Settings.app" "App Store"
 
 # Stacks
 add_stack "$HOME/Dock/Dev"
 add_stack "$HOME/Dock/Office"
 add_stack "$HOME/Downloads"
-add_stack "$HOME/Screenshots"
 
 killall Dock >/dev/null 2>&1 || true
 echo "[dock] Dock configuration applied."
