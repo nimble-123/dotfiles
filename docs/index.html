@@ -11,12 +11,14 @@
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
   </head>
   <body>
     <div class="container">
       <header>
+        <div class="glow-effect"></div>
         <div class="header-content">
-          <h1>🏡 dotfiles</h1>
+          <h1><span class="emoji-fix">🏡</span> dotfiles</h1>
           <p class="subtitle">Meine persönliche macOS-Systemkonfiguration</p>
           <div class="links">
             <a
@@ -44,7 +46,7 @@
         <section class="intro">
           <h2>⚡ Schnellstart</h2>
           <div class="code-block">
-            <pre><code># Homebrew installieren
+            <pre><code class="language-bash"># Homebrew installieren
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 # chezmoi installieren und dotfiles anwenden
@@ -95,7 +97,7 @@ chezmoi init --apply https://github.com/nimble-123/dotfiles.git</code></pre>
           <div class="config-section">
             <h3>🐚 Zsh Konfiguration</h3>
             <div class="code-block">
-              <pre><code># ---- zinit ----
+              <pre><code class="language-bash"># ---- zinit ----
 source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 
 zinit light zsh-users/zsh-autosuggestions
@@ -118,7 +120,7 @@ export FZF_DEFAULT_COMMAND="fd --hidden --follow --exclude .git"</code></pre>
           <div class="config-section">
             <h3>🔧 Git Konfiguration</h3>
             <div class="code-block">
-              <pre><code>[user]
+              <pre><code class="language-ini">[user]
   name = Nils Lutz
   email = info@nilslutz.de
 
@@ -144,7 +146,7 @@ export FZF_DEFAULT_COMMAND="fd --hidden --follow --exclude .git"</code></pre>
           <div class="config-section">
             <h3>✨ Starship Prompt</h3>
             <div class="code-block">
-              <pre><code>format = """
+              <pre><code class="language-toml">format = """
 [░▒▓](#a3aed2)\
 [  ](bg:#a3aed2 fg:#090c0c)\
 [](bg:#769ff0 fg:#a3aed2)\
@@ -168,7 +170,7 @@ $time\
         <section class="updates">
           <h2>🔄 Updates</h2>
           <div class="code-block">
-            <pre><code># Neueste Änderungen holen und anwenden
+            <pre><code class="language-bash"># Neueste Änderungen holen und anwenden
 chezmoi update
 
 # Oder manuell
@@ -188,5 +190,9 @@ chezmoi git pull && chezmoi apply</code></pre>
         </p>
       </footer>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ini.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-toml.min.js"></script>
   </body>
 </html>
