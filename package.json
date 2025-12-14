@@ -26,8 +26,8 @@
     }
   },
   "devDependencies": {
-    "commitizen": "^3",
-    "cz-conventional-changelog": "^2",
-    "standard-version": "^5"
+    "commitizen": "^4",
+    "cz-conventional-changelog": "^3",
+    "standard-version": "^9"
   }
 }
