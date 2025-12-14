@@ -1,5 +1,6 @@
 [user]
   name = Nils Lutz
+  email = info@nilslutz.de
 [core]
   editor = code --wait
 [init]
