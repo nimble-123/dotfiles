@@ -115,9 +115,9 @@ sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutio
 defaults write com.apple.finder QuitMenuItem -bool true
 defaults write com.apple.finder DisableAllAnimations -bool true
 
-# Default Finder window: Home
+# Default Finder window: Downloads
 defaults write com.apple.finder NewWindowTarget -string "PfLo"
-defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/"
+defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/Downloads"
 
 # Show hidden files + extensions
 defaults write com.apple.finder AppleShowAllFiles -bool true
@@ -166,7 +166,7 @@ defaults write com.apple.finder FXInfoPanesExpanded -dict \
 ###############################################################################
 
 defaults write com.apple.dock mouse-over-hilite-stack -bool true
-defaults write com.apple.dock tilesize -int 24
+defaults write com.apple.dock tilesize -int 75
 defaults write com.apple.dock mineffect -string "scale"
 defaults write com.apple.dock enable-spring-load-actions-on-all-items -bool true
 defaults write com.apple.dock show-process-indicators -bool true
@@ -176,7 +176,7 @@ defaults write com.apple.dock expose-group-by-app -bool false
 defaults write com.apple.dock mru-spaces -bool false
 
 # Autohide (in deinem Script war es kommentiert, aber Delay/Time gesetzt → jetzt konsistent)
-defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock autohide -bool false
 defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0
 
