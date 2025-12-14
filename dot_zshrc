@@ -17,9 +17,6 @@ eval "$(direnv hook zsh)"
 
 # ---- quality-of-life ----
 export EDITOR="code -w"
-alias ls="eza --icons --group-directories-first"
-alias ll="eza -lah --icons --group-directories-first"
-alias cat="bat"
 
 export FZF_DEFAULT_COMMAND="fd --hidden --follow --exclude .git"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
