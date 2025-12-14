@@ -1,0 +1,28 @@
+# ---- zinit ----
+source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+
+zinit light zsh-users/zsh-autosuggestions
+zinit light zdharma-continuum/fast-syntax-highlighting
+zinit light zsh-users/zsh-completions
+zinit light Aloxaf/fzf-tab
+
+# ---- prompt ----
+eval "$(starship init zsh)"
+
+# ---- navigation ----
+eval "$(zoxide init zsh)"
+
+# ---- direnv (optional but nice) ----
+eval "$(direnv hook zsh)"
+
+# ---- quality-of-life ----
+export EDITOR="code -w"
+alias ls="eza --icons --group-directories-first"
+alias ll="eza -lah --icons --group-directories-first"
+alias cat="bat"
+
+export FZF_DEFAULT_COMMAND="fd --hidden --follow --exclude .git"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+# extra config
+[ -f "$HOME/.config/zsh/aliases.zsh" ] && source "$HOME/.config/zsh/aliases.zsh"

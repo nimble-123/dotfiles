@@ -1,0 +1,17 @@
+[user]
+  name = Nils Lutz
+[core]
+  editor = code --wait
+[init]
+  defaultBranch = main
+[pull]
+  rebase = true
+[alias]
+  s = status -sb
+  lg = log --oneline --decorate --graph -n 20
+  co = checkout
+  cb = checkout -b
+  d = diff
+  ds = diff --staged
+[include]
+  path = ~/.gitconfig.local

@@ -1,0 +1,6 @@
+# Credentials / auth stores (DO NOT COMMIT)
+.config/gh/**
+.config/op/**
+.config/configstore/**
+.ssh/**
+.gnupg/**
