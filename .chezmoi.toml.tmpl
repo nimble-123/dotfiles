@@ -1,0 +1,14 @@
+{{- /* Werte werden beim ersten `chezmoi init` abgefragt und landen nur lokal in ~/.config/chezmoi/chezmoi.toml */ -}}
+{{- $work := promptBoolOnce . "work" "Ist das der Arbeits-Mac" false -}}
+{{- $email := promptStringOnce . "email" "Git-E-Mail (privat)" "info@nilslutz.de" -}}
+{{- $workEmail := "" -}}
+{{- if $work -}}
+{{-   $workEmail = promptStringOnce . "workEmail" "Git-E-Mail (Arbeit)" -}}
+{{- end -}}
+{{- $sshSigningKey := promptStringOnce . "sshSigningKey" "SSH Public Key fürs Commit-Signing (aus 1Password)" "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAq/zobMpnNbw3J69ZuWUT3o6zTnzQcdf8V/6KYj2h4q" -}}
+
+[data]
+    work = {{ $work }}
+    email = {{ $email | quote }}
+    workEmail = {{ $workEmail | quote }}
+    sshSigningKey = {{ $sshSigningKey | quote }}

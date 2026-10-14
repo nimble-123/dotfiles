@@ -24,3 +24,6 @@ alias gl="git pull --rebase"
 alias gd="git diff"
 alias gds="git diff --staged"
 alias glog="git log --oneline --decorate --graph -n 20"
+
+alias cd..="cd .."
+alias bu="brew update && brew upgrade && brew cleanup"

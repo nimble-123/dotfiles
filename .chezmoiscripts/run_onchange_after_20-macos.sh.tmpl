@@ -1,0 +1,110 @@
+#!/usr/bin/env bash
+# macOS-Einstellungen. Läuft erneut, sobald sich diese Datei ändert.
+# Ohne sudo. Auf dem Arbeits-Mac kann MDM einzelne Keys sperren:
+# Fehler werden gesammelt und am Ende gemeldet, statt abzubrechen.
+set -euo pipefail
+
+failed=()
+dw() { defaults write "$@" 2>/dev/null || failed+=("$*"); }
+
+###############################################################################
+# Finder
+###############################################################################
+dw com.apple.finder AppleShowAllFiles -bool true
+dw NSGlobalDomain AppleShowAllExtensions -bool true
+dw com.apple.finder ShowPathbar -bool true
+dw com.apple.finder ShowStatusBar -bool true
+dw com.apple.finder _FXShowPosixPathInTitle -bool true
+dw com.apple.finder _FXSortFoldersFirst -bool true
+dw com.apple.finder FXPreferredViewStyle -string "Nlsv"
+dw com.apple.finder FXDefaultSearchScope -string "SCcf"
+dw com.apple.finder FXEnableExtensionChangeWarning -bool false
+dw com.apple.finder WarnOnEmptyTrash -bool false
+dw com.apple.finder QuitMenuItem -bool true
+dw com.apple.finder DisableAllAnimations -bool true
+dw com.apple.finder ShowHardDrivesOnDesktop -bool true
+dw com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
+dw com.apple.finder NewWindowTarget -string "PfLo"
+dw com.apple.finder NewWindowTargetPath -string "file://{{ .chezmoi.homeDir }}/"
+dw NSGlobalDomain com.apple.springing.enabled -bool true
+dw NSGlobalDomain com.apple.springing.delay -float 0.3
+dw com.apple.desktopservices DSDontWriteNetworkStores -bool true
+dw com.apple.desktopservices DSDontWriteUSBStores -bool true
+chflags nohidden "$HOME/Library" 2>/dev/null || failed+=("chflags nohidden ~/Library")
+
+###############################################################################
+# Dock & Hot Corners
+###############################################################################
+dw com.apple.dock tilesize -int 75
+dw com.apple.dock magnification -bool true
+dw com.apple.dock largesize -int 128
+dw com.apple.dock autohide -bool false
+dw com.apple.dock autohide-delay -float 0
+dw com.apple.dock autohide-time-modifier -float 0
+dw com.apple.dock mineffect -string "scale"
+dw com.apple.dock minimize-to-application -bool false
+dw com.apple.dock launchanim -bool false
+dw com.apple.dock show-recents -bool false
+dw com.apple.dock showhidden -bool true
+dw com.apple.dock show-process-indicators -bool true
+dw com.apple.dock mouse-over-hilite-stack -bool true
+dw com.apple.dock enable-spring-load-actions-on-all-items -bool true
+dw com.apple.dock mru-spaces -bool false
+dw com.apple.dock expose-animation-duration -float 0.1
+dw com.apple.dock expose-group-by-app -bool false
+# unten rechts: Schreibtisch, unten links: Bildschirmschoner
+dw com.apple.dock wvous-br-corner -int 4
+dw com.apple.dock wvous-br-modifier -int 0
+dw com.apple.dock wvous-bl-corner -int 5
+dw com.apple.dock wvous-bl-modifier -int 0
+
+###############################################################################
+# Tastatur & Texteingabe
+###############################################################################
+dw NSGlobalDomain KeyRepeat -int 1
+dw NSGlobalDomain InitialKeyRepeat -int 15
+dw NSGlobalDomain ApplePressAndHoldEnabled -bool false
+dw NSGlobalDomain AppleKeyboardUIMode -int 3
+dw NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+dw NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+dw NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+dw NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
+
+###############################################################################
+# Screenshots
+###############################################################################
+mkdir -p "$HOME/Screenshots"
+dw com.apple.screencapture location -string "{{ .chezmoi.homeDir }}/Screenshots"
+dw com.apple.screencapture type -string "png"
+
+###############################################################################
+# Save-/Print-Dialoge & allgemeine UI
+###############################################################################
+dw NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
+dw NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
+dw NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
+dw NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
+dw NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
+dw NSGlobalDomain AppleShowScrollBars -string "WhenScrolling"
+dw NSGlobalDomain NSTableViewDefaultSizeMode -int 1
+dw NSGlobalDomain NSWindowResizeTime -float 0.001
+{{- if .work }}
+
+###############################################################################
+# Nur Arbeits-Mac
+###############################################################################
+# (Abweichungen hier eintragen)
+{{- end }}
+
+###############################################################################
+# Neu starten, damit die Änderungen greifen
+###############################################################################
+for app in Finder Dock SystemUIServer; do
+  killall "$app" >/dev/null 2>&1 || true
+done
+
+if ((${#failed[@]})); then
+  echo "[macos] ${#failed[@]} Einstellung(en) nicht gesetzt (MDM-gesperrt?):" >&2
+  printf '  - %s\n' "${failed[@]}" >&2
+fi
+echo "[macos] Fertig. Tastatur-Einstellungen greifen nach Ab-/Anmelden."

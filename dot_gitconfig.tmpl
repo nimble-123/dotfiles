@@ -1,0 +1,39 @@
+[user]
+  name = Nils Lutz
+  email = {{ .email }}
+  signingkey = {{ .sshSigningKey }}
+[gpg]
+  format = ssh
+[gpg "ssh"]
+  program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+[commit]
+  gpgsign = true
+[tag]
+  gpgsign = true
+[core]
+  editor = code --wait
+[init]
+  defaultBranch = main
+[pull]
+  rebase = true
+[alias]
+  s = status -sb
+  lg = log --oneline --decorate --graph -n 20
+  co = checkout
+  cb = checkout -b
+  d = diff
+  ds = diff --staged
+[credential "https://github.com"]
+  helper =
+  helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+  helper =
+  helper = !/opt/homebrew/bin/gh auth git-credential
+# lokal & ungetrackt: Overrides für diesen Mac
+[include]
+  path = ~/.gitconfig.local
+{{- if .work }}
+# Arbeits-Repos unter ~/work/: Arbeits-E-Mail + ggf. eigener Signing-Key
+[includeIf "gitdir:~/work/"]
+  path = ~/.gitconfig.work
+{{- end }}

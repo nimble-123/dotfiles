@@ -1,5 +1,7 @@
-# ---- zinit ----
-source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+# ---- zinit (installiert sich beim ersten Start selbst) ----
+ZINIT_HOME="$HOME/.local/share/zinit/zinit.git"
+[ -d "$ZINIT_HOME" ] || git clone --depth=1 https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+source "$ZINIT_HOME/zinit.zsh"
 
 zinit light zsh-users/zsh-autosuggestions
 zinit light zdharma-continuum/fast-syntax-highlighting
@@ -12,7 +14,7 @@ eval "$(starship init zsh)"
 # ---- navigation ----
 eval "$(zoxide init zsh)"
 
-# ---- direnv (optional but nice) ----
+# ---- direnv ----
 eval "$(direnv hook zsh)"
 
 # ---- quality-of-life ----
@@ -23,3 +25,16 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # extra config
 [ -f "$HOME/.config/zsh/aliases.zsh" ] && source "$HOME/.config/zsh/aliases.zsh"
+
+# ---- nvm ----
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+
+# ---- bun ----
+export BUN_INSTALL="$HOME/.bun"
+[ -s "$BUN_INSTALL/_bun" ] && source "$BUN_INSTALL/_bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# ---- lokal & ungetrackt (Proxy, interne Aliase, ...) ----
+[ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"

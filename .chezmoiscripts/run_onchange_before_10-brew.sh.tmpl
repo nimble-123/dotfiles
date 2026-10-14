@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# Läuft erneut, sobald sich eines der Brewfiles ändert:
+# Brewfile         sha256: {{ include "Brewfile" | sha256sum }}
+{{- if .work }}
+# Brewfile.work    sha256: {{ include "Brewfile.work" | sha256sum }}
+{{- else }}
+# Brewfile.private sha256: {{ include "Brewfile.private" | sha256sum }}
+{{- end }}
+set -euo pipefail
+
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -x /usr/local/bin/brew ]]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+else
+  echo "[brew] Homebrew fehlt – überspringe. Erst bootstrap.sh ausführen." >&2
+  exit 0
+fi
+
+# Rust/cargo (rustup) ist optional; falls installiert, für cargo-Einträge verfügbar machen
+# shellcheck source=/dev/null
+[[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+
+src="{{ .chezmoi.sourceDir }}"
+files=("$src/Brewfile" "$src/{{ if .work }}Brewfile.work{{ else }}Brewfile.private{{ end }}")
+
+bundle() {
+  # Einzelne Fehler (z. B. App Store nicht angemeldet, Cask braucht Admin) brechen chezmoi nicht ab
+  cat "${files[@]}" | brew bundle --file=- || echo "[brew] Einige Pakete sind fehlgeschlagen (siehe oben)." >&2
+}
+
+bundle
+
+# Node via nvm, damit die npm-Einträge im Brewfile greifen
+export NVM_DIR="$HOME/.nvm"
+if ! command -v npm >/dev/null 2>&1 && [[ -s "$(brew --prefix)/opt/nvm/nvm.sh" ]]; then
+  mkdir -p "$NVM_DIR"
+  set +u
+  # shellcheck source=/dev/null
+  source "$(brew --prefix)/opt/nvm/nvm.sh"
+  nvm install --lts
+  set -u
+  echo "[brew] Node installiert – zweiter Durchlauf für npm-Pakete"
+  bundle
+fi

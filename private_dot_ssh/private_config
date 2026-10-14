@@ -1,0 +1,9 @@
+# Lokale, ungetrackte Hosts (Firma, intern): ~/.ssh/config.d/*
+Include ~/.ssh/config.d/*
+
+Host github.com
+  HostName github.com
+  User git
+
+Host *
+  IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"

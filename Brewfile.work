@@ -1,0 +1,23 @@
+# Nur auf dem Arbeits-Mac (zusätzlich zu Brewfile)
+
+# --- Taps --------------------------------------------------------------------
+tap "cloudfoundry/tap", trusted: true
+tap "hashicorp/tap", trusted: true
+tap "sap-samples/sap-devs-cli", "https://github.com/SAP-samples/sap-devs-cli", trusted: true
+
+# --- SAP & Cloud -------------------------------------------------------------
+cask "btp"
+cask "azure-cli"
+brew "cloudfoundry/tap/cf-cli@8"
+cask "sap-samples/sap-devs-cli/sap-devs"
+
+# --- Infrastructure as Code --------------------------------------------------
+brew "hashicorp/tap/terraform"
+brew "terramate"
+
+# --- API-Tools ---------------------------------------------------------------
+cask "postman"
+cask "bruno"
+
+# --- Kommunikation -----------------------------------------------------------
+cask "slack"

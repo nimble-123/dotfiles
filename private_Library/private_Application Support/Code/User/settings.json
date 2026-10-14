@@ -29,7 +29,8 @@
     "*.xml": "xml",
     "*.asddls": "cds",
     "*.asdcls": "cds",
-    "*.asddlx": "cds"
+    "*.asddlx": "cds",
+    "*.srvdsrv": "abap"
   },
   "files.exclude": {
     "**/.classpath": false,
@@ -41,12 +42,9 @@
   "git.confirmSync": false,
   "go.toolsManagement.autoUpdate": true,
   "hediet.vscode-drawio.resizeImages": null,
-  "php.executables": "C:/xampp/php/php.exe",
-  "php.format.codeStyle": "K&R",
   "plantuml.exportSubFolder": false,
   "rainbow_csv.csv_lint_detect_trailing_spaces": true,
   "redhat.telemetry.enabled": false,
-  "sap-remote.landscape-name": "{\"url\":\"https://ee5d1a18trial.us10cf.trial.applicationstudio.cloud.sap/\",\"default\":true}",
   "sap.ux.applicationModeler.disableMigrationPrompt": true,
   "sap.ux.applicationModeler.showPropertiesDescriptionInPageEditor": true,
   "sap.ux.help.advancedUserMode": "advanced",
@@ -67,7 +65,7 @@
   "ui5explorer.framework": "SAPUI5",
   "ui5explorer.version": "1.94.1",
   "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-  "workbench.colorTheme": "GitHub Dark",
+  "workbench.colorTheme": "Aura Dark",
   "workbench.editor.highlightModifiedTabs": true,
   "workbench.iconTheme": "material-icon-theme",
   "[javascript]": {
@@ -131,13 +129,9 @@
   "hediet.vscode-drawio.theme": "kennedy",
   "hediet.vscode-drawio.appearance": "light",
   "hediet.vscode-drawio.codeLinkActivated": false,
-  "remote.SSH.remotePlatform": {
-    "ee5d1a18trial.us10cf.trial.applicationstudio.cloud.sap.ws-vfrcd": "linux"
-  },
   "gitlens.ai.model": "vscode",
   "gitlens.ai.vscode.model": "copilot:gpt-4.1",
   "chat.mcp.serverSampling": {
-  
     "Global in Code: mcp-server-time": {
       "allowedModels": [
         "github.copilot-chat/gpt-4.1",
@@ -190,7 +184,15 @@
     "pnpm": true,
     "curl": true,
     "}\"": true,
-    "rg": true
+    "rg": true,
+    "fd": true,
+    "git remote": true,
+    "git switch": true,
+    "git add": true,
+    "git commit": true,
+    "git push": true,
+    "git ls-remote": true,
+    "az": true
   },
   "chat.agent.thinkingStyle": "collapsedPreview",
   "github.copilot.chat.agent.thinkingTool": true,
@@ -202,10 +204,40 @@
   "playwright.pickLocatorCopyToClipboard": false,
   "azureResourceGroups.enableChatStandIn": false,
   "chat.instructionsFilesLocations": {
-    ".github/instructions": true,
-    "/Users/nimble/.aitk/instructions/": true
+    ".github/instructions": true
   },
   "terminal.integrated.suggest.enabled": true,
   "terminal.integrated.shellIntegration.environmentReporting": true,
-  "chat.viewSessions.orientation": "stacked"
+  "chat.viewSessions.orientation": "stacked",
+  "chat.tools.urls.autoApprove": {
+    "https://github.com": {
+      "approveRequest": false,
+      "approveResponse": true
+    }
+  },
+  "claudeCode.selectedModel": "opus[1m]",
+  "claudeCode.preferredLocation": "panel",
+  "json.schemaDownload.trustedDomains": {
+    "https://biomejs.dev": true,
+    "https://developer.microsoft.com/json-schemas/": true,
+    "https://json-schema.org/": true,
+    "https://json.schemastore.org/": true,
+    "https://models.dev": true,
+    "https://opencode.ai": true,
+    "https://raw.githubusercontent.com/devcontainers/spec/": true,
+    "https://raw.githubusercontent.com/microsoft/vscode/": true,
+    "https://schemastore.azurewebsites.net/": true,
+    "https://www.schemastore.org/": true
+  },
+  "abaplint.inlayHints.inferredTypes": false,
+  "terminal.integrated.initialHint": false,
+  "yaml.disableSchemaDetection": [
+    "**/.github/workflows/*.yml",
+    "**/.github/workflows/*.yaml",
+    "**/.gitea/workflows/*.yml",
+    "**/.gitea/workflows/*.yaml",
+    "**/.forgejo/workflows/*.yml",
+    "**/.forgejo/workflows/*.yaml"
+  ],
+  "chat.agent.sandbox.enabled": "off"
 }

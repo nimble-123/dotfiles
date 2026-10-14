@@ -1,0 +1,23 @@
+# Nur auf dem privaten Mac (zusätzlich zu Brewfile)
+
+# --- Kommunikation -----------------------------------------------------------
+cask "discord"
+cask "telegram-desktop"
+mas "WhatsApp", id: 310633997
+
+# --- Medien ------------------------------------------------------------------
+cask "spotify"
+cask "vlc"
+cask "obs"
+cask "gifox"
+
+# --- Finanzen & Behörden -----------------------------------------------------
+mas "MoneyMoney", id: 872698314
+mas "AusweisApp", id: 948660805
+
+# --- Sonstiges ---------------------------------------------------------------
+cask "brave-browser"
+cask "netnewswire"
+cask "zotero"
+cask "balenaetcher"
+cask "logi-options+"

@@ -1,11 +1,24 @@
-# Credentials / auth stores (DO NOT COMMIT)
-.config/gh/**
-.config/op/**
-.config/configstore/**
-.ssh/**
-.gnupg/**
+# .chezmoiignore ist automatisch ein Template.
 
-docs/**
+# Repo-Dateien, die nicht nach ~ gehören
 README.md
-package.json
-CHANGELOG.md
+bootstrap.sh
+Brewfile
+Brewfile.private
+Brewfile.work
+.githooks
+
+# Credentials / Auth-Stores (NIE committen)
+.config/gh
+.config/op
+.config/configstore
+.gnupg
+.ssh/id_*
+.ssh/*.key
+.ssh/known_hosts*
+.ssh/agent
+
+{{ if not .work -}}
+# nur auf dem Arbeits-Mac
+.gitconfig.work
+{{- end }}

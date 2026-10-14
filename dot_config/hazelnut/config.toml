@@ -1,0 +1,158 @@
+[general]
+log_level = "info"
+log_file = "~/.local/share/hazelnut/hazelnut.log"
+debounce_seconds = 5
+polling_interval_secs = 5
+log_retention = 1000
+start_daemon_on_launch = false
+notifications_enabled = true
+theme = "tokyo-night"
+
+[[watch]]
+path = "~/Downloads"
+recursive = false
+rules = [
+    "downloads-images",
+    "downloads-videos",
+    "downloads-audio",
+    "downloads-documents",
+    "downloads-misc",
+]
+
+[[rule]]
+name = "downloads-images"
+enabled = true
+stop_processing = true
+
+[rule.condition]
+extensions = [
+    "jpg",
+    "jpeg",
+    "png",
+    "gif",
+    "webp",
+    "heic",
+    "heif",
+    "bmp",
+    "tif",
+    "tiff",
+    "svg",
+]
+is_directory = false
+
+[rule.action]
+type = "move"
+destination = "~/Downloads/Medien/Bilder"
+create_destination = true
+overwrite = false
+
+[[rule]]
+name = "downloads-videos"
+enabled = true
+stop_processing = true
+
+[rule.condition]
+extensions = [
+    "mp4",
+    "mov",
+    "mkv",
+    "avi",
+    "webm",
+    "m4v",
+]
+is_directory = false
+
+[rule.action]
+type = "move"
+destination = "~/Downloads/Medien/Videos"
+create_destination = true
+overwrite = false
+
+[[rule]]
+name = "downloads-audio"
+enabled = true
+stop_processing = true
+
+[rule.condition]
+extensions = [
+    "mp3",
+    "m4a",
+    "aac",
+    "wav",
+    "flac",
+    "ogg",
+    "opus",
+    "aiff",
+]
+is_directory = false
+
+[rule.action]
+type = "move"
+destination = "~/Downloads/Medien/Audio"
+create_destination = true
+overwrite = false
+
+[[rule]]
+name = "downloads-documents"
+enabled = true
+stop_processing = true
+
+[rule.condition]
+extensions = [
+    "pdf",
+    "doc",
+    "docx",
+    "xls",
+    "xlsx",
+    "xlsm",
+    "ppt",
+    "pptx",
+    "csv",
+    "tsv",
+    "odt",
+    "ods",
+    "odp",
+    "pages",
+    "numbers",
+    "key",
+    "rtf",
+    "txt",
+]
+age_days_greater_than = 7
+is_directory = false
+
+[rule.action]
+type = "move"
+destination = "~/Downloads/Medien/Dokumente"
+create_destination = true
+overwrite = false
+
+[[rule]]
+name = "downloads-misc"
+enabled = true
+stop_processing = true
+
+[rule.condition]
+extensions = [
+    "zip",
+    "7z",
+    "rar",
+    "tar",
+    "gz",
+    "tgz",
+    "bz2",
+    "xz",
+    "json",
+    "yaml",
+    "yml",
+    "xml",
+    "toml",
+]
+age_days_greater_than = 7
+is_directory = false
+
+[rule.action]
+type = "move"
+destination = "~/Downloads/Sonstiges"
+create_destination = true
+overwrite = false

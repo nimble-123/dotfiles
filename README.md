@@ -1,172 +1,80 @@
 # dotfiles
 
-> 🏡 Meine persönliche macOS-Systemkonfiguration mit [chezmoi](https://www.chezmoi.io/)
+Mein Mac-Setup mit [chezmoi](https://chezmoi.io): ein Repo für den privaten und den Arbeits-Mac.
 
-🌐 **[Zur Website →](https://nimble-123.github.io/dotfiles/)**
-
-Automatisierte Einrichtung für:
-
-- 🍺 Homebrew-Pakete und Apps (170+ Einträge)
-- 🐚 Modern Shell Setup (zsh, starship, zinit)
-- 💻 VS Code Konfiguration (90+ Extensions)
-- 🎨 macOS Systemeinstellungen & Dock-Layout
-- ⚡ CLI Tools (eza, bat, fzf, ripgrep, zoxide, ...)
-
-## ⚡ Schnellstart
-
-### Erstinstallation
+## Neuer Mac
 
 ```bash
-# 1. Homebrew installieren (falls noch nicht vorhanden)
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-# 2. chezmoi installieren und dotfiles anwenden
-brew install chezmoi
-chezmoi init --apply https://github.com/nimble-123/dotfiles.git
+curl -fsSL https://raw.githubusercontent.com/nimble-123/dotfiles/main/bootstrap.sh | bash
 ```
 
-Das war's! chezmoi führt automatisch aus:
+Das Skript installiert Xcode CLT → Homebrew → chezmoi, klont dieses Repo, fragt nach E-Mail, Arbeits-Mac (ja/nein) und SSH-Signing-Key, zeigt `chezmoi diff` und wendet erst nach Bestätigung an. Es kann beliebig oft laufen.
 
-- ✅ Installation aller Homebrew-Pakete aus `.Brewfile`
-- ✅ Anwendung der macOS-Systemeinstellungen
-- ✅ Dock-Konfiguration
-- ✅ Installation aller VS Code Extensions
+Ohne Admin-Rechte: Homebrew braucht einmalig Admin. Fehlt Homebrew, bricht das Skript mit einer Erklärung ab. Alle anderen Skripte laufen ohne `sudo`.
 
-### Updates
+## Alltag
 
-```bash
-# Neueste Änderungen holen und anwenden
-chezmoi update
+| Was | Befehl |
+|---|---|
+| Neue Datei aufnehmen | `chezmoi add ~/.config/foo/config` |
+| Datei bearbeiten | `chezmoi edit ~/.zshrc` (oder direkt in `~` ändern, dann `chezmoi re-add`) |
+| Änderungen ansehen | `chezmoi diff` |
+| Anwenden | `chezmoi apply` |
+| Ins Repo-Verzeichnis | `chezmoi cd` |
+| Pushen | `chezmoi cd && git add -A && git commit -m "…" && git push` |
+| Auf dem anderen Mac holen | `chezmoi update` (= pull + apply) |
 
-# Oder manuell
-chezmoi git pull && chezmoi apply
-```
+**Neue App:** Eintrag ins passende Brewfile (`Brewfile` = beide Macs, `Brewfile.private`, `Brewfile.work`), committen, `chezmoi apply`. Das Brew-Skript läuft automatisch erneut, weil sich der Hash des Brewfiles ändert.
 
-## 📁 Struktur
+## Privat vs. Arbeit
 
-```
-.
-├── .chezmoiscripts/          # Automatisierungs-Skripte
-│   ├── run_onchange_10_brew.sh
-│   ├── run_onchange_20_macos_defaults.sh
-│   ├── run_once_30_macos_dock.sh
-│   └── run_onchange_40_vscode_extensions.sh
-├── dot_Brewfile              # Homebrew Pakete & Apps
-├── dot_gitconfig             # Git-Konfiguration
-├── dot_zshrc                 # Zsh-Konfiguration
-├── dot_zprofile              # Zsh-Profil (Homebrew init)
-├── dot_config/
-│   ├── starship.toml         # Starship Prompt
-│   ├── zsh/aliases.zsh       # Shell-Aliases
-│   ├── macos/                # macOS-Skripte
-│   └── vscode/               # VS Code Extensions
-└── private_Library/          # VS Code Settings (privat)
-```
+Beim ersten `chezmoi init` wird gefragt, Antworten landen **nur lokal** in `~/.config/chezmoi/chezmoi.toml`:
 
-## 🛠️ Enthaltene Tools
+| Variable | Wirkung |
+|---|---|
+| `work` | `true` = Arbeits-Mac: `Brewfile.work` statt `Brewfile.private`, `includeIf` für `~/work/`, `~/.gitconfig.work` wird angelegt |
+| `email` | private Git-E-Mail (Standard für alle Repos) |
+| `workEmail` | nur Arbeits-Mac: E-Mail für Repos unter `~/work/` |
+| `sshSigningKey` | Public Key aus 1Password fürs Commit-Signing |
 
-### Shell & Terminal
+In Templates (`*.tmpl`): `{{ if .work }} … {{ end }}`. Dateien, die nur auf einem Mac existieren sollen: `.chezmoiignore`.
+Werte ändern: `chezmoi edit-config`, danach `chezmoi apply`.
 
-- **zsh** mit [zinit](https://github.com/zdharma-continuum/zinit) Plugin-Manager
-- **starship** - Moderner, schneller Prompt
-- **zoxide** - Smarte Verzeichnis-Navigation
-- **fzf** - Fuzzy Finder für Command-History
-- **eza** - Modernes `ls` mit Icons
-- **bat** - `cat` mit Syntax-Highlighting
-- **ripgrep** - Schnellere `grep`-Alternative
-- **fd** - Besseres `find`
+### Lokale, ungetrackte Dateien
 
-### Entwicklung
+Alles Firmeninterne (Hostnamen, IPs, Proxy, Registry-URLs, Arbeits-Workflows) gehört **nur** hierhin, nie ins Repo:
 
-- Git, GitHub CLI, Git Delta
-- Node.js (via nvm), Python (pyenv), Go
-- Docker Desktop
-- Terraform, Azure CLI, Cloud Foundry CLI
-- VS Code mit umfangreicher Extension-Liste
+| Datei | Zweck |
+|---|---|
+| `~/.zshrc.local` | Proxy, interne Aliase, Env-Variablen |
+| `~/.ssh/config.d/*` | Firmen- und interne SSH-Hosts |
+| `~/.gitconfig.work` | Arbeits-E-Mail + Signing-Key für `~/work/` (einmalig von chezmoi angelegt) |
+| `~/.gitconfig.local` | sonstige Git-Overrides für diesen Mac |
 
-### Produktivität
+Secrets nur per `{{ onepasswordRead "op://Vault/Item/Feld" }}` in einem Template, nie im Klartext.
 
-- 1Password CLI
-- Maccy (Clipboard Manager)
-- Alt-Tab (Window Switcher)
-- Stats (System Monitor)
-- Shottr (Screenshot Tool)
+## Was drin ist
 
-## 🔧 Konfigurationsdetails
+- **Shell:** `.zshrc` (zinit, starship, zoxide, direnv, fzf, nvm), `.zprofile`, `.zshenv`, `aliases.zsh`
+- **Git:** `.gitconfig` mit SSH-Signing über 1Password, globale `ignore`
+- **SSH:** `~/.ssh/config` mit 1Password-Agent, nur github.com. Keine Keys im Repo
+- **Apps:** Warp `settings.toml`, VS Code `settings.json`, starship, btop, fastfetch, linearmouse, hazelnut
+- **Skripte** (`.chezmoiscripts/`): `10-brew` (Brewfiles), `20-macos` (Finder, Dock, Tastatur, Screenshots, Dialoge), `30-dock` (Dock-Layout + Stacks)
 
-### macOS Einstellungen
+## Sicherheit
 
-Die Datei [`dot_config/macos/executable_defaults.sh`](dot_config/macos/executable_defaults.sh) konfiguriert:
+- Pre-commit-Hook scannt jeden Commit mit gitleaks (`.githooks/`, aktiviert über `git config core.hooksPath .githooks`, macht `bootstrap.sh` automatisch)
+- Ganze History prüfen: `gitleaks git .`
 
-- Schnelle Key-Repeat-Rate
-- Screenshots im PNG-Format nach `~/Screenshots`
-- Finder: Versteckte Dateien & Erweiterungen anzeigen
-- Dock: Autohide, 9×9 Launchpad-Grid
-- Safari: Developer Tools aktiviert
-- Activity Monitor: CPU-Anzeige im Dock
+## Checkliste: manuelle Schritte
 
-### Shell-Aliases
-
-Siehe [`dot_config/zsh/aliases.zsh`](dot_config/zsh/aliases.zsh):
-
-```bash
-ll      # eza -lah mit Icons
-cat     # bat mit Syntax-Highlighting
-find    # fd (schneller)
-grep    # ripgrep
-g       # git
-gs      # git status -sb
-glog    # git log --graph
-```
-
-## 🔄 Änderungen am Setup
-
-### Pakete hinzufügen
-
-```bash
-# Brewfile bearbeiten
-chezmoi edit ~/.Brewfile
-
-# Änderungen anwenden
-chezmoi apply
-```
-
-### Einstellungen ändern
-
-```bash
-# Datei bearbeiten (z.B. .zshrc)
-chezmoi edit ~/.zshrc
-
-# Änderungen prüfen
-chezmoi diff
-
-# Anwenden
-chezmoi apply
-```
-
-### In Git committen
-
-```bash
-chezmoi cd
-git add .
-git commit -m "feat: neue Konfiguration"
-git push
-```
-
-## 📝 Semantic Versioning
-
-Dieses Repository nutzt [Conventional Commits](https://www.conventionalcommits.org/) und [standard-version](https://github.com/conventional-changelog/standard-version):
-
-```bash
-npm run commit    # Commitizen für Conventional Commits
-npm run release   # Neue Version erstellen
-```
-
-## 🙏 Credits
-
-- macOS Einstellungen inspiriert von [mathiasbynens/dotfiles](https://github.com/mathiasbynens/dotfiles)
-- Chezmoi-Setup-Ideen von der [chezmoi-Community](https://github.com/twpayne/chezmoi)
-
-## 📄 Lizenz
-
-MIT
+- [ ] **1Password** anmelden → Einstellungen → Entwickler: **SSH-Agent** und **CLI-Integration** aktivieren
+- [ ] SSH testen: `ssh -T git@github.com`
+- [ ] Signing-Key bei GitHub als **Signing Key** hinterlegen (Settings → SSH and GPG keys)
+- [ ] **Warp:** Settings → Account → **Settings Sync aus** (sonst Konflikte mit chezmoi)
+- [ ] **VS Code:** Settings Sync aus lassen (chezmoi verwaltet `settings.json`)
+- [ ] App Store anmelden, dann `chezmoi apply` erneut, falls mas-Apps fehlen
+- [ ] Datenschutz-Freigaben: Bedienungshilfen (alt-tab, linearmouse, Amphetamine), Bildschirmaufnahme (shottr, OBS), Festplattenvollzugriff (Warp)
+- [ ] Logins & Lizenzen: GitHub (`gh auth login`), Claude, ChatGPT, MoneyMoney, gifox
+- [ ] Apps mit eigener Cloud-Sync: 1Password, Obsidian, Raycast, Slack
+- [ ] Rust optional: `curl https://sh.rustup.rs -sSf | sh`, danach `chezmoi apply` für cargo-Pakete
