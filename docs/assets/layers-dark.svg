@@ -16,13 +16,13 @@
 <rect x="136" y="64" width="784" height="64" fill="#151938"/>
 <text x="156" y="100" fill="#a9aecb" font-size="8" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="start" letter-spacing="0.14em">MACHINE</text>
 <text x="268" y="94" fill="#eceef8" font-size="16" font-family="'Schibsted Grotesk', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" text-anchor="start" font-weight="600">Local files</text>
-<text x="268" y="112" fill="#a9aecb" font-size="9" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="start">~/.zshrc.local · ~/.ssh/config.d/* · ~/.gitconfig.work</text>
+<text x="268" y="112" fill="#a9aecb" font-size="9" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="start">~/.zshrc.local · ~/.ssh/config.d/*</text>
 <text x="900" y="100" fill="#a9aecb" font-size="10" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="end">untracked</text>
 <rect x="136" y="128" width="784" height="64" fill="#7c7bff" fill-opacity="0.12"/>
 <rect x="136" y="128" width="784" height="64" fill="none" stroke="#7c7bff" stroke-width="1"/>
 <text x="156" y="164" fill="#7c7bff" font-size="8" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="start" font-weight="600" letter-spacing="0.14em">TEMPLATE</text>
 <text x="268" y="158" fill="#eceef8" font-size="16" font-family="'Schibsted Grotesk', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" text-anchor="start" font-weight="600">work flag</text>
-<text x="268" y="176" fill="#a9aecb" font-size="9" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="start">false: Brewfile.private · true: Brewfile.work + includeIf ~/work/</text>
+<text x="268" y="176" fill="#a9aecb" font-size="9" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="start">false: Brewfile.private · true: Brewfile.work + work identity</text>
 <text x="900" y="164" fill="#7c7bff" font-size="10" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="end">public, per Mac</text>
 <rect x="136" y="192" width="784" height="64" fill="#10132b"/>
 <line x1="136" y1="256" x2="920" y2="256" stroke="#eceef8" stroke-opacity="0.12" stroke-width="1"/>

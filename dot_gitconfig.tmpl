@@ -1,6 +1,6 @@
 [user]
   name = Nils Lutz
-  email = {{ .email }}
+  email = {{ if .work }}{{ .workEmail }}{{ else }}{{ .email }}{{ end }}
   signingkey = {{ .sshSigningKey }}
 [gpg]
   format = ssh
@@ -34,8 +34,3 @@
 # lokal & ungetrackt: Overrides für diesen Mac
 [include]
   path = ~/.gitconfig.local
-{{- if .work }}
-# Arbeits-Repos unter ~/work/: Arbeits-E-Mail + ggf. eigener Signing-Key
-[includeIf "gitdir:~/work/"]
-  path = ~/.gitconfig.work
-{{- end }}

@@ -58,7 +58,7 @@ That's it. The script installs Xcode Command Line Tools, Homebrew and chezmoi, c
 | **Apps** | [Warp](https://warp.dev) `settings.toml`, VS Code `settings.json` plus 110 extensions, btop, fastfetch, linearmouse and hazelnut. |
 | **Packages** | Three Brewfiles: [`Brewfile`](Brewfile) for both Macs, [`Brewfile.private`](Brewfile.private) and [`Brewfile.work`](Brewfile.work), each grouped by category. They cover formulae, casks, Mac App Store apps, VS Code extensions, and npm, uv and cargo tools. |
 | **macOS** | Finder, Dock, keyboard, screenshots and save dialogs set via `defaults write`. MDM-tolerant: a locked setting is reported at the end instead of failing the run. |
-| **Dock** | Layout and stacks via `dockutil`. Apps that aren't installed are skipped. |
+| **Dock** | One layout for both Macs via `dockutil`, grouped by topic, with Downloads as a stack. Apps that aren't installed are skipped. |
 
 ### Repository layout
 
@@ -76,7 +76,6 @@ That's it. The script installs Xcode Command Line Tools, Homebrew and chezmoi, c
 ├── .github/workflows/               # release-please
 ├── docs/                            # website + diagrams
 ├── dot_zshrc · dot_zprofile · dot_zshenv · dot_gitconfig.tmpl
-├── create_dot_gitconfig.work.tmpl   # created once on the work Mac, then yours
 ├── dot_config/                      # starship, zsh, git, btop, fastfetch, …
 ├── dot_warp/settings.toml
 ├── private_dot_ssh/                 # ~/.ssh (700) and config (600)
@@ -96,10 +95,10 @@ On the first `chezmoi init` you're asked a few questions. The answers are stored
 
 | Variable | What it does |
 | --- | --- |
-| `work` | `true` on the work Mac: installs `Brewfile.work` instead of `Brewfile.private`, uses KeePassXC instead of 1Password for SSH and signing, adds the `includeIf` for `~/work/` and creates `~/.gitconfig.work` |
-| `email` | Personal Git email, the default for every repo |
-| `workEmail` | Work Mac only: the email for repos under `~/work/` |
-| `sshSigningKey` | Public SSH key used to sign commits (from 1Password or KeePassXC) |
+| `work` | `true` on the work Mac: installs `Brewfile.work` instead of `Brewfile.private`, uses KeePassXC instead of 1Password for SSH and signing, and applies the work email and the work signing key globally |
+| `email` | Personal Git email, used on the personal Mac |
+| `workEmail` | Work Mac only: the Git email for every repo on that Mac |
+| `sshSigningKey` | Public SSH key used to sign commits. On the work Mac there is no default: paste the work key (`ssh-add -L` with KeePassXC unlocked), it stays in the local `chezmoi.toml` |
 
 Templates branch on the flag with `{{ if .work }} … {{ end }}`, and `.chezmoiignore` decides which files exist on which Mac. To change an answer later, run `chezmoi edit-config` and then `chezmoi apply`.
 
@@ -111,8 +110,7 @@ Company-specific things such as hostnames, IPs, proxies, registry URLs or intern
 | --- | --- |
 | `~/.zshrc.local` | Proxy settings, internal aliases, environment variables. Sourced last by `.zshrc` |
 | `~/.ssh/config.d/*` | Company and internal SSH hosts. Included at the top of `~/.ssh/config` |
-| `~/.gitconfig.work` | Work email and signing key for everything under `~/work/`. Created once by chezmoi, then never touched again |
-| `~/.gitconfig.local` | Any other Git overrides for this machine |
+| `~/.gitconfig.local` | Git overrides for this machine, for example a different email or key for single repos. Included last, so it wins |
 
 ## Daily workflow
 
@@ -147,7 +145,7 @@ There are no private keys on disk. A password manager serves them through an SSH
   gpgsign = true
 ```
 
-Need a different key just for work repos? Set `signingkey` in `~/.gitconfig.work`, and it applies to every repo under `~/work/`.
+Need a different email or key for single repos? Put an `includeIf` or a `user.signingkey` into `~/.gitconfig.local`.
 
 ## Security
 
@@ -186,7 +184,7 @@ Some things can't be scripted (yet):
 - [ ] **Warp:** Settings → Account → turn **Settings Sync off**, so it doesn't fight chezmoi
 - [ ] **VS Code:** leave Settings Sync off, since chezmoi owns `settings.json`
 - [ ] Sign in to the **App Store**, then rerun `chezmoi apply` if any `mas` apps are missing
-- [ ] **Privacy permissions:** Accessibility (alt-tab, linearmouse, Amphetamine), Screen Recording (shottr, OBS), Full Disk Access (Warp)
+- [ ] **Privacy permissions:** Accessibility (linearmouse, Amphetamine on the personal Mac, Caffeine on the work Mac), Screen Recording (shottr, OBS), Full Disk Access (Warp)
 - [ ] **Logins & licences:** `gh auth login`, Claude, ChatGPT, MoneyMoney, gifox
 - [ ] Apps with their own cloud sync: 1Password, Obsidian, Raycast, Slack
 - [ ] Optional Rust: `curl https://sh.rustup.rs -sSf | sh`, then `chezmoi apply` for the cargo tools

@@ -21,8 +21,3 @@ release-please-config.json
 .ssh/*.key
 .ssh/known_hosts*
 .ssh/agent
-
-{{ if not .work -}}
-# nur auf dem Arbeits-Mac
-.gitconfig.work
-{{- end }}

@@ -5,7 +5,13 @@
 {{- if $work -}}
 {{-   $workEmail = promptStringOnce . "workEmail" "Git-E-Mail (Arbeit)" -}}
 {{- end -}}
-{{- $sshSigningKey := promptStringOnce . "sshSigningKey" "SSH Public Key fürs Commit-Signing (1Password privat, KeePassXC Arbeit)" "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAq/zobMpnNbw3J69ZuWUT3o6zTnzQcdf8V/6KYj2h4q" -}}
+{{- /* Arbeits-Mac: bewusst ohne Default, der Key liegt nur lokal (aus `ssh-add -L`, KeePassXC entsperrt) */ -}}
+{{- $sshSigningKey := "" -}}
+{{- if $work -}}
+{{-   $sshSigningKey = promptStringOnce . "sshSigningKey" "SSH Public Key fürs Commit-Signing (Arbeit, aus ssh-add -L)" -}}
+{{- else -}}
+{{-   $sshSigningKey = promptStringOnce . "sshSigningKey" "SSH Public Key fürs Commit-Signing (privat, 1Password)" "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAq/zobMpnNbw3J69ZuWUT3o6zTnzQcdf8V/6KYj2h4q" -}}
+{{- end -}}
 
 [data]
     work = {{ $work }}
