@@ -1,80 +1,166 @@
+<div align="center">
+
 # dotfiles
 
-Mein Mac-Setup mit [chezmoi](https://chezmoi.io): ein Repo für den privaten und den Arbeits-Mac.
+**One command from a fresh Mac to my desk.**<br>
+My macOS setup, managed with chezmoi: one public repo for my personal and my work Mac, with secrets kept in 1Password.
 
-## Neuer Mac
+[![macOS](https://img.shields.io/badge/macOS-Apple_Silicon-000000?style=flat-square&logo=apple&logoColor=white)](#quick-start)
+[![chezmoi](https://img.shields.io/badge/managed_with-chezmoi-4B91E2?style=flat-square)](https://chezmoi.io)
+[![Homebrew](https://img.shields.io/badge/Homebrew-Brewfile-FBB040?style=flat-square&logo=homebrew&logoColor=black)](Brewfile)
+[![1Password](https://img.shields.io/badge/SSH_%26_signing-1Password-0094F5?style=flat-square&logo=1password&logoColor=white)](#ssh--commit-signing)
+[![gitleaks](https://img.shields.io/badge/secrets-gitleaks-E34F26?style=flat-square)](#security)
+[![Last commit](https://img.shields.io/github/last-commit/nimble-123/dotfiles?style=flat-square)](https://github.com/nimble-123/dotfiles/commits/main)
+
+[Quick start](#quick-start) · [What's inside](#whats-inside) · [Personal vs. work](#personal-vs-work) · [Daily workflow](#daily-workflow) · [Security](#security) · [Manual steps](#manual-steps)
+
+</div>
+
+> [!NOTE]
+> This repo is public on purpose, so nothing in it is secret: no private keys, tokens, internal hostnames or company URLs. Anything sensitive lives in [local, untracked files](#local-untracked-files) or in 1Password.
+
+## Quick start
+
+On a fresh Mac, run:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/nimble-123/dotfiles/main/bootstrap.sh | bash
 ```
 
-Das Skript installiert Xcode CLT → Homebrew → chezmoi, klont dieses Repo, fragt nach E-Mail, Arbeits-Mac (ja/nein) und SSH-Signing-Key, zeigt `chezmoi diff` und wendet erst nach Bestätigung an. Es kann beliebig oft laufen.
+That's it. The script installs Xcode Command Line Tools, Homebrew and chezmoi, clones this repo and asks three questions: your email, whether this is the work Mac, and your SSH signing key. Before it touches anything it shows `chezmoi diff` and waits for a **yes**. You can safely run it again at any time.
 
-Ohne Admin-Rechte: Homebrew braucht einmalig Admin. Fehlt Homebrew, bricht das Skript mit einer Erklärung ab. Alle anderen Skripte laufen ohne `sudo`.
+```mermaid
+flowchart LR
+    A[bootstrap.sh] --> B[Xcode CLT]
+    B --> C[Homebrew]
+    C --> D[chezmoi init]
+    D --> E{chezmoi diff<br>apply?}
+    E -- yes --> F[10 · brew bundle]
+    F --> G[dotfiles]
+    G --> H[20 · macOS defaults]
+    H --> I[30 · Dock]
+```
 
-## Alltag
+> [!TIP]
+> **No admin rights?** Homebrew needs them once, to create `/opt/homebrew`. If Homebrew is missing on a standard account, bootstrap stops and tells you what to ask IT for. Nothing else uses `sudo`.
 
-| Was | Befehl |
-|---|---|
-| Neue Datei aufnehmen | `chezmoi add ~/.config/foo/config` |
-| Datei bearbeiten | `chezmoi edit ~/.zshrc` (oder direkt in `~` ändern, dann `chezmoi re-add`) |
-| Änderungen ansehen | `chezmoi diff` |
-| Anwenden | `chezmoi apply` |
-| Ins Repo-Verzeichnis | `chezmoi cd` |
-| Pushen | `chezmoi cd && git add -A && git commit -m "…" && git push` |
-| Auf dem anderen Mac holen | `chezmoi update` (= pull + apply) |
+## Why
 
-**Neue App:** Eintrag ins passende Brewfile (`Brewfile` = beide Macs, `Brewfile.private`, `Brewfile.work`), committen, `chezmoi apply`. Das Brew-Skript läuft automatisch erneut, weil sich der Hash des Brewfiles ändert.
+- **One command.** A new Mac goes from setup assistant to a working terminal, editor and toolchain without a checklist of 40 installs.
+- **Two Macs, one repo.** Shared defaults with a single `work` flag for the differences, so the personal and work setups don't drift apart.
+- **Public, but safe.** Secrets stay in 1Password. Company specifics stay in local files. Every commit runs through gitleaks.
+- **Diff before apply.** Nothing is overwritten silently.
+- **Boring on purpose.** Plain chezmoi, plain Brewfiles and plain shell scripts, with no framework on top.
 
-## Privat vs. Arbeit
+## What's inside
 
-Beim ersten `chezmoi init` wird gefragt, Antworten landen **nur lokal** in `~/.config/chezmoi/chezmoi.toml`:
+| | |
+| --- | --- |
+| **Shell** | zsh with [zinit](https://github.com/zdharma-continuum/zinit) (autosuggestions, syntax highlighting, fzf-tab), [starship](https://starship.rs) prompt, zoxide, direnv, fzf, nvm, plus modern aliases (`eza`, `bat`, `fd`, `rg`). zinit installs itself on first launch. |
+| **Git** | Commits and tags signed with SSH through 1Password, `gh` as the credential helper, a global ignore file and short aliases. |
+| **SSH** | Uses the 1Password SSH agent and lists only public hosts such as github.com. Everything else is pulled in from `~/.ssh/config.d/*`. |
+| **Apps** | [Warp](https://warp.dev) `settings.toml`, VS Code `settings.json` plus 110 extensions, btop, fastfetch, linearmouse and hazelnut. |
+| **Packages** | Three Brewfiles: [`Brewfile`](Brewfile) for both Macs, [`Brewfile.private`](Brewfile.private) and [`Brewfile.work`](Brewfile.work), each grouped by category. They cover formulae, casks, Mac App Store apps, VS Code extensions, and npm, uv and cargo tools. |
+| **macOS** | Finder, Dock, keyboard, screenshots and save dialogs set via `defaults write`. MDM-tolerant: a locked setting is reported at the end instead of failing the run. |
+| **Dock** | Layout and stacks via `dockutil`. Apps that aren't installed are skipped. |
 
-| Variable | Wirkung |
-|---|---|
-| `work` | `true` = Arbeits-Mac: `Brewfile.work` statt `Brewfile.private`, `includeIf` für `~/work/`, `~/.gitconfig.work` wird angelegt |
-| `email` | private Git-E-Mail (Standard für alle Repos) |
-| `workEmail` | nur Arbeits-Mac: E-Mail für Repos unter `~/work/` |
-| `sshSigningKey` | Public Key aus 1Password fürs Commit-Signing |
+### Repository layout
 
-In Templates (`*.tmpl`): `{{ if .work }} … {{ end }}`. Dateien, die nur auf einem Mac existieren sollen: `.chezmoiignore`.
-Werte ändern: `chezmoi edit-config`, danach `chezmoi apply`.
+```text
+.
+├── bootstrap.sh                     # the one-liner target
+├── Brewfile · Brewfile.private · Brewfile.work
+├── .chezmoi.toml.tmpl               # prompts → ~/.config/chezmoi/chezmoi.toml (local)
+├── .chezmoiignore                   # repo-only files, secrets, per-machine files
+├── .chezmoiscripts/
+│   ├── run_onchange_before_10-brew.sh.tmpl    # reruns when a Brewfile changes
+│   ├── run_onchange_after_20-macos.sh.tmpl    # defaults write
+│   └── run_onchange_after_30-dock.sh          # Dock layout
+├── .githooks/pre-commit             # gitleaks
+├── dot_zshrc · dot_zprofile · dot_zshenv · dot_gitconfig.tmpl
+├── create_dot_gitconfig.work.tmpl   # created once on the work Mac, then yours
+├── dot_config/                      # starship, zsh, git, btop, fastfetch, …
+├── dot_warp/settings.toml
+├── private_dot_ssh/                 # ~/.ssh (700) and config (600)
+└── private_Library/…/Code/User/settings.json
+```
 
-### Lokale, ungetrackte Dateien
+Scripts are `run_onchange`: each one embeds a hash of what it depends on and only runs again when that changes. Edit a Brewfile, run `chezmoi apply`, and only `brew bundle` runs.
 
-Alles Firmeninterne (Hostnamen, IPs, Proxy, Registry-URLs, Arbeits-Workflows) gehört **nur** hierhin, nie ins Repo:
+## Personal vs. work
 
-| Datei | Zweck |
-|---|---|
-| `~/.zshrc.local` | Proxy, interne Aliase, Env-Variablen |
-| `~/.ssh/config.d/*` | Firmen- und interne SSH-Hosts |
-| `~/.gitconfig.work` | Arbeits-E-Mail + Signing-Key für `~/work/` (einmalig von chezmoi angelegt) |
-| `~/.gitconfig.local` | sonstige Git-Overrides für diesen Mac |
+On the first `chezmoi init` you're asked a few questions. The answers are stored **only locally** in `~/.config/chezmoi/chezmoi.toml`, never in this repo.
 
-Secrets nur per `{{ onepasswordRead "op://Vault/Item/Feld" }}` in einem Template, nie im Klartext.
+| Variable | What it does |
+| --- | --- |
+| `work` | `true` on the work Mac: installs `Brewfile.work` instead of `Brewfile.private`, adds the `includeIf` for `~/work/` and creates `~/.gitconfig.work` |
+| `email` | Personal Git email, the default for every repo |
+| `workEmail` | Work Mac only: the email for repos under `~/work/` |
+| `sshSigningKey` | Public key from 1Password used to sign commits |
 
-## Was drin ist
+Templates branch on the flag with `{{ if .work }} … {{ end }}`, and `.chezmoiignore` decides which files exist on which Mac. To change an answer later, run `chezmoi edit-config` and then `chezmoi apply`.
 
-- **Shell:** `.zshrc` (zinit, starship, zoxide, direnv, fzf, nvm), `.zprofile`, `.zshenv`, `aliases.zsh`
-- **Git:** `.gitconfig` mit SSH-Signing über 1Password, globale `ignore`
-- **SSH:** `~/.ssh/config` mit 1Password-Agent, nur github.com. Keine Keys im Repo
-- **Apps:** Warp `settings.toml`, VS Code `settings.json`, starship, btop, fastfetch, linearmouse, hazelnut
-- **Skripte** (`.chezmoiscripts/`): `10-brew` (Brewfiles), `20-macos` (Finder, Dock, Tastatur, Screenshots, Dialoge), `30-dock` (Dock-Layout + Stacks)
+### Local, untracked files
 
-## Sicherheit
+Company-specific things such as hostnames, IPs, proxies, registry URLs or internal workflows go here and **never** into the repo:
 
-- Pre-commit-Hook scannt jeden Commit mit gitleaks (`.githooks/`, aktiviert über `git config core.hooksPath .githooks`, macht `bootstrap.sh` automatisch)
-- Ganze History prüfen: `gitleaks git .`
+| File | Purpose |
+| --- | --- |
+| `~/.zshrc.local` | Proxy settings, internal aliases, environment variables. Sourced last by `.zshrc` |
+| `~/.ssh/config.d/*` | Company and internal SSH hosts. Included at the top of `~/.ssh/config` |
+| `~/.gitconfig.work` | Work email and signing key for everything under `~/work/`. Created once by chezmoi, then never touched again |
+| `~/.gitconfig.local` | Any other Git overrides for this machine |
 
-## Checkliste: manuelle Schritte
+## Daily workflow
 
-- [ ] **1Password** anmelden → Einstellungen → Entwickler: **SSH-Agent** und **CLI-Integration** aktivieren
-- [ ] SSH testen: `ssh -T git@github.com`
-- [ ] Signing-Key bei GitHub als **Signing Key** hinterlegen (Settings → SSH and GPG keys)
-- [ ] **Warp:** Settings → Account → **Settings Sync aus** (sonst Konflikte mit chezmoi)
-- [ ] **VS Code:** Settings Sync aus lassen (chezmoi verwaltet `settings.json`)
-- [ ] App Store anmelden, dann `chezmoi apply` erneut, falls mas-Apps fehlen
-- [ ] Datenschutz-Freigaben: Bedienungshilfen (alt-tab, linearmouse, Amphetamine), Bildschirmaufnahme (shottr, OBS), Festplattenvollzugriff (Warp)
-- [ ] Logins & Lizenzen: GitHub (`gh auth login`), Claude, ChatGPT, MoneyMoney, gifox
-- [ ] Apps mit eigener Cloud-Sync: 1Password, Obsidian, Raycast, Slack
-- [ ] Rust optional: `curl https://sh.rustup.rs -sSf | sh`, danach `chezmoi apply` für cargo-Pakete
+| Task | Command |
+| --- | --- |
+| Track a new file | `chezmoi add ~/.config/foo/config` |
+| Edit a tracked file | `chezmoi edit ~/.zshrc`, or edit in place and run `chezmoi re-add` |
+| Preview changes | `chezmoi diff` |
+| Apply | `chezmoi apply` |
+| Jump into the repo | `chezmoi cd` |
+| Commit and push | `git add -A && git commit -m "…" && git push` |
+| Pull on the other Mac | `chezmoi update` |
+
+**Adding an app:** put it in the right Brewfile, commit, then run `chezmoi apply`. The brew script picks up the changed hash and runs `brew bundle`.
+
+## SSH & commit signing
+
+There are no private keys on disk. The 1Password SSH agent serves them, and every commit is signed with the same key:
+
+```ini
+[gpg]
+  format = ssh
+[gpg "ssh"]
+  program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+[commit]
+  gpgsign = true
+```
+
+The work Mac can use a different 1Password account and key. Set `signingkey` in `~/.gitconfig.work`, and it applies to every repo under `~/work/`.
+
+## Security
+
+- **Secrets only via 1Password:** `{{ onepasswordRead "op://Vault/Item/field" }}` in a template, never in plain text.
+- **Pre-commit hook:** [`.githooks/pre-commit`](.githooks/pre-commit) runs `gitleaks` on every staged change. `bootstrap.sh` turns it on with `git config core.hooksPath .githooks`.
+- **Full history scan:** `gitleaks git .`
+- **Ignored by design:** `~/.ssh` keys and `known_hosts`, `gh`, `op` and `gnupg` config.
+
+## Manual steps
+
+Some things can't be scripted (yet):
+
+- [ ] **1Password:** sign in, then Settings → Developer → turn on **SSH agent** and **CLI integration**
+- [ ] Add the SSH key to GitHub as both an **authentication** and a **signing** key, then run `ssh -T git@github.com`
+- [ ] **Warp:** Settings → Account → turn **Settings Sync off**, so it doesn't fight chezmoi
+- [ ] **VS Code:** leave Settings Sync off, since chezmoi owns `settings.json`
+- [ ] Sign in to the **App Store**, then rerun `chezmoi apply` if any `mas` apps are missing
+- [ ] **Privacy permissions:** Accessibility (alt-tab, linearmouse, Amphetamine), Screen Recording (shottr, OBS), Full Disk Access (Warp)
+- [ ] **Logins & licences:** `gh auth login`, Claude, ChatGPT, MoneyMoney, gifox
+- [ ] Apps with their own cloud sync: 1Password, Obsidian, Raycast, Slack
+- [ ] Optional Rust: `curl https://sh.rustup.rs -sSf | sh`, then `chezmoi apply` for the cargo tools
+
+<div align="center">
+<sub>Built with <a href="https://chezmoi.io">chezmoi</a>. Feel free to borrow anything that's useful to you.</sub>
+</div>
