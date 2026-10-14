@@ -7,6 +7,10 @@ Brewfile
 Brewfile.private
 Brewfile.work
 .githooks
+docs
+CHANGELOG.md
+version.txt
+release-please-config.json
 
 # Credentials / Auth-Stores (NIE committen)
 .config/gh
