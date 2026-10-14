@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 960 404" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="bootstrap-dark-title bootstrap-dark-desc" id="bootstrap-dark-root">
+<title id="bootstrap-dark-title">Bootstrapping a new Mac</title>
+<desc id="bootstrap-dark-desc">Flowchart of the one-liner: it installs Xcode tools and Homebrew, runs chezmoi init, shows a diff and only after confirmation runs brew bundle, writes the dotfiles, applies macOS defaults and sets up the Dock.</desc>
+<defs>
+      <style>@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500;600&amp;family=Noto+Serif:ital@0;1&amp;family=Noto+Sans+KR:wght@400;500;600&amp;family=Noto+Serif+KR:wght@400&amp;family=Noto+Sans+TC:wght@400;500;600&amp;family=Noto+Serif+TC:wght@400&amp;display=swap');
+      #bootstrap-dark-root { color: #eceef8; font-family: 'Schibsted Grotesk', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; }
+      #bootstrap-dark-root .diagram-container { width: 100%; overflow-x: auto; }
+      #bootstrap-dark-root .diagram-container { overflow-x: visible; }</style><marker id="bootstrap-dark-bootstrap-dark-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#a9aecb"/></marker><marker id="bootstrap-dark-bootstrap-dark-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#7c7bff"/></marker></defs>
+<rect width="100%" height="100%" fill="#10132b"/>
+<path d="M200 100 L238 100" fill="none" stroke="#a9aecb" stroke-width="1" marker-end="url(#bootstrap-dark-bootstrap-dark-arrow)"/>
+<path d="M416 100 L454 100" fill="none" stroke="#a9aecb" stroke-width="1" marker-end="url(#bootstrap-dark-bootstrap-dark-arrow)"/>
+<path d="M616 100 L670 100" fill="none" stroke="#a9aecb" stroke-width="1" marker-end="url(#bootstrap-dark-bootstrap-dark-arrow)"/>
+<path d="M800 100 L838 100" fill="none" stroke="#a9aecb" stroke-width="1" marker-end="url(#bootstrap-dark-bootstrap-dark-arrow)"/>
+<path d="M736 140 L736 172 Q736 180 728 180 L136 180 Q128 180 128 188 L128 234" fill="none" stroke="#7c7bff" stroke-width="1.2" marker-end="url(#bootstrap-dark-bootstrap-dark-arrow-accent)"/>
+<path d="M216 260 L254 260" fill="none" stroke="#a9aecb" stroke-width="1" marker-end="url(#bootstrap-dark-bootstrap-dark-arrow)"/>
+<path d="M432 260 L470 260" fill="none" stroke="#a9aecb" stroke-width="1" marker-end="url(#bootstrap-dark-bootstrap-dark-arrow)"/>
+<path d="M648 260 L686 260" fill="none" stroke="#a9aecb" stroke-width="1" marker-end="url(#bootstrap-dark-bootstrap-dark-arrow)"/>
+<rect x="808" y="80" width="24" height="12" rx="2" fill="#10132b"/>
+<text x="820" y="89" fill="#8a90b4" font-size="8" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="middle" letter-spacing="0.06em">NO</text>
+<rect x="746" y="148" width="28" height="12" rx="2" fill="#10132b"/>
+<text x="760" y="157" fill="#7c7bff" font-size="8" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="middle" letter-spacing="0.06em">YES</text>
+<rect x="40" y="76" width="160" height="48" rx="20" fill="#10132b"/>
+<rect x="40" y="76" width="160" height="48" rx="20" fill="#151938" stroke="#eceef8" stroke-width="1"/>
+<text x="120" y="98" fill="#eceef8" font-size="12" font-family="'Schibsted Grotesk', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" text-anchor="middle" font-weight="600">Run the one-liner</text>
+<text x="120" y="113" fill="#a9aecb" font-size="9" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="middle">curl … | bash</text>
+<rect x="240" y="76" width="176" height="48" rx="6" fill="#10132b"/>
+<rect x="240" y="76" width="176" height="48" rx="6" fill="#151938" stroke="#eceef8" stroke-width="1"/>
+<text x="328" y="98" fill="#eceef8" font-size="12" font-family="'Schibsted Grotesk', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" text-anchor="middle" font-weight="600">Xcode CLT + Homebrew</text>
+<text x="328" y="113" fill="#a9aecb" font-size="9" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="middle">admin rights, once</text>
+<rect x="456" y="76" width="160" height="48" rx="6" fill="#10132b"/>
+<rect x="456" y="76" width="160" height="48" rx="6" fill="#151938" stroke="#eceef8" stroke-width="1"/>
+<text x="536" y="98" fill="#eceef8" font-size="12" font-family="'Schibsted Grotesk', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" text-anchor="middle" font-weight="600">chezmoi init</text>
+<text x="536" y="113" fill="#a9aecb" font-size="9" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="middle">clone + 3 prompts</text>
+<polygon points="672,100 736,60 800,100 736,140" fill="#10132b"/>
+<polygon points="672,100 736,60 800,100 736,140" fill="#7c7bff" fill-opacity="0.12" stroke="#7c7bff" stroke-width="1.2"/>
+<text x="736" y="99" fill="#eceef8" font-size="12" font-family="'Schibsted Grotesk', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" text-anchor="middle" font-weight="600">Apply diff?</text>
+<text x="736" y="114" fill="#7c7bff" font-size="9" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="middle">chezmoi diff</text>
+<rect x="840" y="76" width="96" height="48" rx="20" fill="#10132b"/>
+<rect x="840" y="76" width="96" height="48" rx="20" fill="#151938" stroke="#eceef8" stroke-width="1"/>
+<text x="888" y="98" fill="#eceef8" font-size="12" font-family="'Schibsted Grotesk', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" text-anchor="middle" font-weight="600">Stop</text>
+<text x="888" y="113" fill="#a9aecb" font-size="9" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="middle">no changes</text>
+<rect x="40" y="236" width="176" height="48" rx="6" fill="#10132b"/>
+<rect x="40" y="236" width="176" height="48" rx="6" fill="#151938" stroke="#eceef8" stroke-width="1"/>
+<rect x="48" y="244" width="20" height="12" rx="2" fill="none" stroke="#a9aecb" stroke-opacity="0.5" stroke-width="0.8"/>
+<text x="58" y="253" fill="#a9aecb" font-size="7" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="middle">10</text>
+<text x="128" y="258" fill="#eceef8" font-size="12" font-family="'Schibsted Grotesk', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" text-anchor="middle" font-weight="600">brew bundle</text>
+<text x="128" y="273" fill="#a9aecb" font-size="9" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="middle">Brewfile + .private|.work</text>
+<rect x="256" y="236" width="176" height="48" rx="6" fill="#10132b"/>
+<rect x="256" y="236" width="176" height="48" rx="6" fill="#151938" stroke="#eceef8" stroke-width="1"/>
+<text x="344" y="258" fill="#eceef8" font-size="12" font-family="'Schibsted Grotesk', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" text-anchor="middle" font-weight="600">Dotfiles</text>
+<text x="344" y="273" fill="#a9aecb" font-size="9" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="middle">zsh, git, ssh, Warp …</text>
+<rect x="472" y="236" width="176" height="48" rx="6" fill="#10132b"/>
+<rect x="472" y="236" width="176" height="48" rx="6" fill="#151938" stroke="#eceef8" stroke-width="1"/>
+<rect x="480" y="244" width="20" height="12" rx="2" fill="none" stroke="#a9aecb" stroke-opacity="0.5" stroke-width="0.8"/>
+<text x="490" y="253" fill="#a9aecb" font-size="7" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="middle">20</text>
+<text x="560" y="258" fill="#eceef8" font-size="12" font-family="'Schibsted Grotesk', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" text-anchor="middle" font-weight="600">macOS defaults</text>
+<text x="560" y="273" fill="#a9aecb" font-size="9" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="middle">defaults write</text>
+<rect x="688" y="236" width="176" height="48" rx="6" fill="#10132b"/>
+<rect x="688" y="236" width="176" height="48" rx="6" fill="#151938" stroke="#eceef8" stroke-width="1"/>
+<rect x="696" y="244" width="20" height="12" rx="2" fill="none" stroke="#a9aecb" stroke-opacity="0.5" stroke-width="0.8"/>
+<text x="706" y="253" fill="#a9aecb" font-size="7" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="middle">30</text>
+<text x="776" y="258" fill="#eceef8" font-size="12" font-family="'Schibsted Grotesk', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" text-anchor="middle" font-weight="600">Dock</text>
+<text x="776" y="273" fill="#a9aecb" font-size="9" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="middle">dockutil</text>
+<line x1="40" y1="336" x2="920" y2="336" stroke="#eceef8" stroke-opacity="0.12" stroke-width="0.8"/>
+<text x="40" y="356" fill="#a9aecb" font-size="8" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="start" letter-spacing="0.14em">LEGEND</text>
+<rect x="120" y="348" width="28" height="12" rx="6" fill="none" stroke="#eceef8" stroke-width="0.8"/>
+<text x="156" y="357" fill="#a9aecb" font-size="9" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="start">start / stop</text>
+<rect x="280" y="348" width="28" height="12" rx="2" fill="none" stroke="#eceef8" stroke-width="0.8"/>
+<text x="316" y="357" fill="#a9aecb" font-size="9" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="start">step</text>
+<rect x="388" y="348" width="20" height="12" rx="2" fill="none" stroke="#a9aecb" stroke-opacity="0.5" stroke-width="0.8"/>
+<text x="398" y="357" fill="#a9aecb" font-size="7" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="middle">10</text>
+<text x="416" y="357" fill="#a9aecb" font-size="9" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="start">chezmoi script order</text>
+<polygon points="608,354 620,348 632,354 620,360" fill="#7c7bff" fill-opacity="0.12" stroke="#7c7bff" stroke-width="1"/>
+<text x="640" y="357" fill="#a9aecb" font-size="9" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="start">you confirm</text>
+</svg>

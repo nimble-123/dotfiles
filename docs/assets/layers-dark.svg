@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 960 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="layers-dark-title layers-dark-desc" id="layers-dark-root">
+<title id="layers-dark-title">Personal vs. work: what lives where</title>
+<desc id="layers-dark-desc">Layer stack of the dotfiles: 1Password holds keys, the public repo holds the shared base, the work flag picks per-Mac differences, and untracked local files hold anything company-specific.</desc>
+  <defs>
+      <style>@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500;600&amp;family=Noto+Serif:ital@0;1&amp;family=Noto+Sans+KR:wght@400;500;600&amp;family=Noto+Serif+KR:wght@400&amp;family=Noto+Sans+TC:wght@400;500;600&amp;family=Noto+Serif+TC:wght@400&amp;display=swap');
+      #layers-dark-root { color: #eceef8; font-family: 'Schibsted Grotesk', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; }
+      #layers-dark-root .diagram-container { width: 100%; overflow-x: auto; }
+      #layers-dark-root .diagram-container { overflow-x: visible; }</style>
+  </defs>
+<rect width="100%" height="100%" fill="#10132b"/>
+<text x="40" y="52" fill="#a9aecb" font-size="8" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="start" letter-spacing="0.14em">OVERRIDES</text>
+<line x1="76" y1="72" x2="76" y2="320" stroke="#eceef8" stroke-opacity="0.30" stroke-width="1"/>
+<polygon points="72,72 80,72 76,64" fill="#a9aecb"/>
+<text x="40" y="340" fill="#a9aecb" font-size="8" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="start" letter-spacing="0.14em">SHARED</text>
+<rect x="136" y="64" width="784" height="64" fill="#151938"/>
+<text x="156" y="100" fill="#a9aecb" font-size="8" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="start" letter-spacing="0.14em">MACHINE</text>
+<text x="268" y="94" fill="#eceef8" font-size="16" font-family="'Schibsted Grotesk', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" text-anchor="start" font-weight="600">Local files</text>
+<text x="268" y="112" fill="#a9aecb" font-size="9" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="start">~/.zshrc.local · ~/.ssh/config.d/* · ~/.gitconfig.work</text>
+<text x="900" y="100" fill="#a9aecb" font-size="10" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="end">untracked</text>
+<rect x="136" y="128" width="784" height="64" fill="#7c7bff" fill-opacity="0.12"/>
+<rect x="136" y="128" width="784" height="64" fill="none" stroke="#7c7bff" stroke-width="1"/>
+<text x="156" y="164" fill="#7c7bff" font-size="8" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="start" font-weight="600" letter-spacing="0.14em">TEMPLATE</text>
+<text x="268" y="158" fill="#eceef8" font-size="16" font-family="'Schibsted Grotesk', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" text-anchor="start" font-weight="600">work flag</text>
+<text x="268" y="176" fill="#a9aecb" font-size="9" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="start">false: Brewfile.private · true: Brewfile.work + includeIf ~/work/</text>
+<text x="900" y="164" fill="#7c7bff" font-size="10" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="end">public, per Mac</text>
+<rect x="136" y="192" width="784" height="64" fill="#10132b"/>
+<line x1="136" y1="256" x2="920" y2="256" stroke="#eceef8" stroke-opacity="0.12" stroke-width="1"/>
+<text x="156" y="228" fill="#a9aecb" font-size="8" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="start" letter-spacing="0.14em">REPO</text>
+<text x="268" y="222" fill="#eceef8" font-size="16" font-family="'Schibsted Grotesk', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" text-anchor="start" font-weight="600">Shared base</text>
+<text x="268" y="240" fill="#a9aecb" font-size="9" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="start">zsh · git · ssh · Warp · VS Code · Brewfile</text>
+<text x="900" y="228" fill="#a9aecb" font-size="10" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="end">public</text>
+<rect x="136" y="256" width="784" height="64" fill="#181c3a"/>
+<text x="156" y="292" fill="#a9aecb" font-size="8" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="start" letter-spacing="0.14em">VAULT</text>
+<text x="268" y="286" fill="#eceef8" font-size="16" font-family="'Schibsted Grotesk', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" text-anchor="start" font-weight="600">1Password</text>
+<text x="268" y="304" fill="#a9aecb" font-size="9" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="start">SSH keys · commit signing · onepasswordRead</text>
+<text x="900" y="292" fill="#a9aecb" font-size="10" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="end">never in git</text>
+<rect x="136" y="64" width="784" height="256" fill="none" stroke="#eceef8" stroke-opacity="0.30" stroke-width="1"/>
+<text x="136" y="372" fill="#a9aecb" font-size="8" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="start" letter-spacing="0.14em">FOCAL LAYER</text>
+<text x="240" y="372" fill="#a9aecb" font-size="10" font-family="'Schibsted Grotesk', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" text-anchor="start">One flag decides what differs between the Macs. Anything company-specific stays local.</text>
+</svg>

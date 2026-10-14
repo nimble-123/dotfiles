@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>dotfiles · nimble-123</title>
+<meta name="description" content="One command from a fresh Mac to my desk. A macOS setup managed with chezmoi, for a personal and a work Mac.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f2f3f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#10132b" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='9' fill='%233d3bf3'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wdth,wght@87.5,400;87.5,500&family=Schibsted+Grotesk:wght@400..800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f2f3f7;
+    --paper-2: #e7e9f1;
+    --surface: #ffffff;
+    --ink: #14182e;
+    --muted: #4a5072;
+    --soft: #6b7194;
+    --rule: rgba(20, 24, 46, 0.12);
+    --accent: #3d3bf3;
+    --accent-ink: #ffffff;
+    --accent-tint: rgba(61, 59, 243, 0.08);
+    --dot: 20, 24, 46;
+    --dot-accent: 61, 59, 243;
+    --sans: "Schibsted Grotesk", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    --mono: "Martian Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    --ease: cubic-bezier(0.2, 0, 0, 1);
+    --measure: 72ch;
+    --gutter: clamp(16px, 5vw, 48px);
+    --elev: 0 0 0 1px rgba(20, 24, 46, 0.08), 0 1px 2px rgba(20, 24, 46, 0.06), 0 8px 24px -12px rgba(20, 24, 46, 0.18);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #10132b;
+      --paper-2: #181c3a;
+      --surface: #161a36;
+      --ink: #eceef8;
+      --muted: #a9aecb;
+      --soft: #8a90b4;
+      --rule: rgba(236, 238, 248, 0.12);
+      --accent: #7c7bff;
+      --accent-ink: #0c0e22;
+      --accent-tint: rgba(124, 123, 255, 0.14);
+      --dot: 236, 238, 248;
+      --dot-accent: 124, 123, 255;
+      --elev: 0 0 0 1px rgba(236, 238, 248, 0.09), 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px -12px rgba(0, 0, 0, 0.6);
+    }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 400 17px/1.6 var(--sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+  code, kbd, .mono { font-family: var(--mono); font-stretch: 87.5%; font-size: 0.86em; }
+  .wrap { width: 100%; max-width: calc(var(--measure) + 2 * var(--gutter)); margin: 0 auto; padding: 0 var(--gutter); }
+
+  /* ---------- nav ---------- */
+  .nav { position: absolute; inset: 0 0 auto 0; z-index: 2; }
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+  .brand { font-weight: 700; letter-spacing: -0.01em; text-decoration: none; }
+  .brand span { color: var(--accent); }
+  .nav-links { display: flex; gap: 4px; align-items: center; }
+  .nav-links a {
+    display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 12px;
+    border-radius: 999px; text-decoration: none; color: var(--muted); font-size: 15px;
+    transition-property: color, background-color; transition-duration: 150ms; transition-timing-function: var(--ease);
+  }
+  .nav-links a:hover { color: var(--ink); background: var(--accent-tint); }
+  .version { font-variant-numeric: tabular-nums; }
+  .version[hidden] { display: none; }
+
+  /* ---------- hero ---------- */
+  .hero { position: relative; min-height: min(92vh, 860px); display: flex; align-items: flex-end; padding: 128px 0 clamp(32px, 6vh, 64px); isolation: isolate; }
+  #field {
+    position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; display: block;
+    -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+            mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+  }
+  .no-webgl #field { display: none; }
+  .no-webgl .hero::before {
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    background-image: radial-gradient(rgba(var(--dot), 0.16) 1.2px, transparent 1.6px);
+    background-size: 20px 20px;
+    -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+            mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+  }
+  h1 {
+    margin: 0;
+    font-size: clamp(64px, 15vw, 168px);
+    line-height: 0.88;
+    font-weight: 800;
+    letter-spacing: -0.055em;
+    text-wrap: balance;
+    margin-left: -0.04em;
+  }
+  h1 .dot { color: var(--accent); }
+  .lead { margin: 24px 0 0; max-width: 40ch; font-size: clamp(20px, 2.4vw, 26px); line-height: 1.35; color: var(--muted); text-wrap: balance; letter-spacing: -0.01em; }
+
+  .cmd {
+    margin-top: 40px; display: flex; align-items: center; gap: 8px; max-width: 100%;
+    background: var(--surface); border-radius: 14px; padding: 6px 6px 6px 18px; box-shadow: var(--elev);
+  }
+  .cmd code { flex: 1; min-width: 0; overflow-x: auto; white-space: nowrap; padding: 12px 0; scrollbar-width: none; font-size: 14px; }
+  .cmd code::-webkit-scrollbar { display: none; }
+  .cmd .prompt { color: var(--soft); user-select: none; margin-right: 10px; }
+  .copy {
+    position: relative; flex: none; width: 44px; height: 44px; border: 0; border-radius: 8px; cursor: pointer;
+    background: var(--accent); color: var(--accent-ink);
+    transition-property: scale, background-color; transition-duration: 150ms; transition-timing-function: var(--ease);
+  }
+  .copy:active { scale: 0.96; }
+  .copy svg {
+    position: absolute; inset: 0; margin: auto; width: 18px; height: 18px;
+    transition-property: opacity, scale, filter; transition-duration: 200ms; transition-timing-function: var(--ease);
+  }
+  .copy .i-check { opacity: 0; scale: 0.25; filter: blur(4px); }
+  .copy.done .i-copy { opacity: 0; scale: 0.25; filter: blur(4px); }
+  .copy.done .i-check { opacity: 1; scale: 1; filter: blur(0); }
+  .hint { margin: 14px 0 0; font-size: 15px; color: var(--soft); }
+
+  /* ---------- sections ---------- */
+  section { padding: clamp(64px, 11vw, 120px) 0 0; }
+  h2 { margin: 0 0 12px; font-size: clamp(28px, 4vw, 36px); line-height: 1.1; letter-spacing: -0.03em; font-weight: 700; text-wrap: balance; }
+  .sub { margin: 0 0 32px; color: var(--muted); max-width: 56ch; text-wrap: pretty; }
+
+  /* steps */
+  .steps { list-style: none; margin: 0; padding: 0; counter-reset: step; display: grid; gap: 0; }
+  .steps li {
+    counter-increment: step; display: grid; grid-template-columns: 48px 1fr; gap: 4px 16px; align-items: baseline;
+    padding: 18px 0; border-top: 1px solid var(--rule);
+  }
+  .steps li:last-child { border-bottom: 1px solid var(--rule); }
+  .steps li::before {
+    content: counter(step); grid-row: span 2; font-variant-numeric: tabular-nums; font-weight: 700; color: var(--soft);
+    font-size: 15px;
+  }
+  .steps strong { font-weight: 600; }
+  .steps span { color: var(--muted); text-wrap: pretty; }
+  .steps li.key::before { color: var(--accent); }
+
+  /* personal vs work */
+  .switcher { background: var(--surface); border-radius: 18px; box-shadow: var(--elev); padding: 8px; }
+  .switch-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 12px 16px 16px; }
+  .switch-row label { font-weight: 600; cursor: pointer; }
+  .switch-row label code { color: var(--muted); font-weight: 400; margin-left: 6px; white-space: nowrap; }
+  .toggle {
+    position: relative; flex: none; width: 52px; height: 32px; border-radius: 999px; border: 0; padding: 0; cursor: pointer;
+    background: var(--paper-2); box-shadow: inset 0 0 0 1px var(--rule);
+    transition-property: background-color; transition-duration: 200ms; transition-timing-function: var(--ease);
+  }
+  .toggle::before { content: ""; position: absolute; inset: -6px; } /* 44px hit area */
+  .toggle::after {
+    content: ""; position: absolute; top: 4px; left: 4px; width: 24px; height: 24px; border-radius: 50%;
+    background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.2), 0 2px 6px rgba(0,0,0,.12);
+    transition-property: translate; transition-duration: 220ms; transition-timing-function: var(--ease);
+  }
+  .toggle[aria-checked="true"] { background: var(--accent); box-shadow: none; }
+  .toggle[aria-checked="true"]::after { translate: 20px 0; }
+  .rows { margin: 0; background: var(--paper); border-radius: 10px; padding: 4px 16px; }
+  .rows > div { display: grid; grid-template-columns: minmax(120px, 0.6fr) 1fr; gap: 16px; padding: 14px 0; border-top: 1px solid var(--rule); }
+  .rows > div:first-child { border-top: 0; }
+  .rows dt { color: var(--muted); }
+  .rows dd { margin: 0; min-width: 0; }
+  .swap { display: inline-block; transition-property: opacity, filter, translate; transition-duration: 180ms; transition-timing-function: var(--ease); }
+  .swap.out { opacity: 0; filter: blur(4px); translate: 0 4px; }
+  .rows code { overflow-wrap: anywhere; }
+  .rows .on { color: var(--accent); }
+
+  /* inside */
+  .inside { margin: 0; }
+  .inside > div { display: grid; grid-template-columns: 120px 1fr; gap: 16px; padding: 16px 0; border-top: 1px solid var(--rule); }
+  .inside > div:last-child { border-bottom: 1px solid var(--rule); }
+  .inside dt { font-weight: 600; }
+  .inside dd { margin: 0; color: var(--muted); text-wrap: pretty; }
+
+  /* commands */
+  .cmds { width: 100%; border-collapse: collapse; }
+  .cmds td { padding: 12px 0; border-top: 1px solid var(--rule); vertical-align: baseline; }
+  .cmds tr:last-child td { border-bottom: 1px solid var(--rule); }
+  .cmds td:first-child { color: var(--muted); padding-right: 24px; width: 42%; }
+  .cmds code { white-space: nowrap; }
+  .table-scroll { overflow-x: auto; }
+
+  footer { padding: clamp(80px, 12vw, 140px) 0 48px; color: var(--soft); font-size: 15px; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+  footer a { text-decoration-color: var(--rule); text-underline-offset: 3px; }
+  footer a:hover { text-decoration-color: currentColor; }
+
+  /* single page-load moment: hero copy rises in sequence */
+  @media (prefers-reduced-motion: no-preference) {
+    .rise { opacity: 0; translate: 0 12px; filter: blur(4px); animation: rise 700ms var(--ease) forwards; }
+    .rise:nth-child(2) { animation-delay: 100ms; }
+    .rise:nth-child(3) { animation-delay: 200ms; }
+    .rise:nth-child(4) { animation-delay: 300ms; }
+    @keyframes rise { to { opacity: 1; translate: 0 0; filter: blur(0); } }
+  }
+
+  @media (max-width: 560px) {
+    .hero { min-height: 78vh; }
+    .steps li { grid-template-columns: 32px 1fr; }
+    .rows > div, .inside > div { grid-template-columns: 1fr; gap: 4px; }
+    .cmds td:first-child { width: auto; }
+  }
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="dotfiles home"><span>.</span>dotfiles</a>
+    <nav class="nav-links" aria-label="Links">
+      <a class="version" id="version" href="https://github.com/nimble-123/dotfiles/releases" hidden></a>
+      <a href="https://github.com/nimble-123/dotfiles">
+        <svg width="18" height="18" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+        GitHub
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <canvas id="field" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <h1 class="rise"><span class="dot">.</span>dotfiles</h1>
+      <p class="lead rise">One command from a fresh Mac to my desk. Same repo for my personal and my work Mac.</p>
+      <div class="cmd rise">
+        <code id="oneliner"><span class="prompt" aria-hidden="true">$</span>curl -fsSL https://raw.githubusercontent.com/nimble-123/dotfiles/main/bootstrap.sh | bash</code>
+        <button class="copy" type="button" aria-label="Copy command">
+          <svg class="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+          <svg class="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+        </button>
+      </div>
+      <p class="hint rise" aria-live="polite" id="hint">Paste it into Terminal on a new Mac. It shows every change before applying it.</p>
+    </div>
+  </div>
+
+  <section aria-labelledby="h-steps">
+    <div class="wrap">
+      <h2 id="h-steps">What the command does</h2>
+      <p class="sub">It is safe to run again at any time. Nothing in your home folder changes until you say yes.</p>
+      <ol class="steps">
+        <li><strong>Installs Xcode tools and Homebrew</strong><span>Homebrew needs admin rights once. On an account without them, the script stops and says what to ask IT for.</span></li>
+        <li><strong>Clones this repo with chezmoi</strong><span>It asks for your email, whether this is the work Mac, and your SSH signing key.</span></li>
+        <li class="key"><strong>Shows the diff and waits</strong><span>You see every file that would change and decide whether to apply.</span></li>
+        <li><strong>Installs apps</strong><span>One <code>brew bundle</code> run for the shared Brewfile plus the personal or work one.</span></li>
+        <li><strong>Writes dotfiles and macOS settings</strong><span>Shell, Git, SSH, Warp and VS Code config, then Finder, Dock and keyboard defaults.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-macs">
+    <div class="wrap">
+      <h2 id="h-macs">Two Macs, one repo</h2>
+      <p class="sub">A single flag, set once per Mac, decides what differs. Try it.</p>
+      <div class="switcher">
+        <div class="switch-row">
+          <label for="work" id="work-label">This is the work Mac <code id="flag">work = false</code></label>
+          <button class="toggle" id="work" type="button" role="switch" aria-checked="false" aria-labelledby="work-label"></button>
+        </div>
+        <dl class="rows" aria-live="polite">
+          <div><dt>Apps</dt><dd><span class="swap" data-personal="&lt;code&gt;Brewfile&lt;/code&gt; + &lt;code&gt;Brewfile.private&lt;/code&gt;" data-work="&lt;code&gt;Brewfile&lt;/code&gt; + &lt;code class='on'&gt;Brewfile.work&lt;/code&gt;"><code>Brewfile</code> + <code>Brewfile.private</code></span></dd></div>
+          <div><dt>Git identity</dt><dd><span class="swap" data-personal="Personal email everywhere" data-work="Personal email, work email under &lt;code class='on'&gt;~/work/&lt;/code&gt;">Personal email everywhere</span></dd></div>
+          <div><dt>Signing key</dt><dd><span class="swap" data-personal="Personal key from 1Password" data-work="Work key from &lt;code class='on'&gt;~/.gitconfig.work&lt;/code&gt; for work repos">Personal key from 1Password</span></dd></div>
+          <div><dt>Company stuff</dt><dd><span class="swap" data-personal="None" data-work="Local only: &lt;code&gt;~/.zshrc.local&lt;/code&gt;, &lt;code&gt;~/.ssh/config.d/*&lt;/code&gt;">None</span></dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-inside">
+    <div class="wrap">
+      <h2 id="h-inside">What's inside</h2>
+      <p class="sub">Plain chezmoi, plain Brewfiles, plain shell scripts. Nothing to learn beyond chezmoi itself.</p>
+      <dl class="inside">
+        <div><dt>Shell</dt><dd>zsh with zinit, starship, zoxide, direnv, fzf and nvm. Modern aliases for <code>eza</code>, <code>bat</code>, <code>fd</code> and <code>rg</code>.</dd></div>
+        <div><dt>Git</dt><dd>Every commit signed with SSH through 1Password. No private key ever touches the disk.</dd></div>
+        <div><dt>Apps</dt><dd>Warp, VS Code with 110 extensions, btop, fastfetch, linearmouse and hazelnut.</dd></div>
+        <div><dt>macOS</dt><dd>Finder, Dock, keyboard, screenshots and save dialogs. A setting locked by MDM is reported, not fatal.</dd></div>
+        <div><dt>Safety</dt><dd>A public repo with nothing secret in it. gitleaks checks every commit.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-daily">
+    <div class="wrap">
+      <h2 id="h-daily">Everyday commands</h2>
+      <p class="sub">Change a file, check what would happen, apply it, push. The other Mac picks it up with one command.</p>
+      <div class="table-scroll">
+        <table class="cmds">
+          <tbody>
+            <tr><td>Track a new file</td><td><code>chezmoi add ~/.config/foo</code></td></tr>
+            <tr><td>Edit a tracked file</td><td><code>chezmoi edit ~/.zshrc</code></td></tr>
+            <tr><td>See what would change</td><td><code>chezmoi diff</code></td></tr>
+            <tr><td>Apply it</td><td><code>chezmoi apply</code></td></tr>
+            <tr><td>Update the other Mac</td><td><code>chezmoi update</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Built with <a href="https://chezmoi.io">chezmoi</a>. Borrow anything you like.</span>
+    <span><a href="https://github.com/nimble-123/dotfiles#readme">README</a> &nbsp; <a href="https://github.com/nimble-123/dotfiles/blob/main/CHANGELOG.md">Changelog</a></span>
+  </div>
+</footer>
+
+<script>
+(() => {
+  // ---------- copy ----------
+  const btn = document.querySelector(".copy");
+  const hint = document.getElementById("hint");
+  const cmd = "curl -fsSL https://raw.githubusercontent.com/nimble-123/dotfiles/main/bootstrap.sh | bash";
+  const hintText = hint.textContent;
+  let t;
+  btn.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(cmd);
+      btn.classList.add("done");
+      btn.setAttribute("aria-label", "Copied");
+      hint.textContent = "Copied. Paste it into Terminal.";
+    } catch {
+      hint.textContent = "Copy failed. Select the command and press ⌘C.";
+    }
+    clearTimeout(t);
+    t = setTimeout(() => {
+      btn.classList.remove("done");
+      btn.setAttribute("aria-label", "Copy command");
+      hint.textContent = hintText;
+    }, 1800);
+  });
+
+  // ---------- work switch ----------
+  const toggle = document.getElementById("work");
+  const flag = document.getElementById("flag");
+  const swaps = document.querySelectorAll(".swap");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)");
+  toggle.addEventListener("click", () => {
+    const on = toggle.getAttribute("aria-checked") !== "true";
+    toggle.setAttribute("aria-checked", String(on));
+    flag.textContent = `work = ${on}`;
+    swaps.forEach((el) => {
+      const html = on ? el.dataset.work : el.dataset.personal;
+      if (reduce.matches) { el.innerHTML = html; return; }
+      el.classList.add("out");
+      setTimeout(() => { el.innerHTML = html; el.classList.remove("out"); }, 160);
+    });
+  });
+
+  // ---------- latest release ----------
+  fetch("https://api.github.com/repos/nimble-123/dotfiles/releases/latest")
+    .then((r) => (r.ok ? r.json() : null))
+    .then((r) => {
+      if (!r || !r.tag_name) return;
+      const v = document.getElementById("version");
+      v.textContent = r.tag_name;
+      v.href = r.html_url;
+      v.hidden = false;
+    })
+    .catch(() => {});
+
+  // ---------- WebGL dot field ----------
+  const canvas = document.getElementById("field");
+  const gl = canvas.getContext("webgl", { premultipliedAlpha: true, antialias: false, alpha: true });
+  if (!gl) { document.documentElement.classList.add("no-webgl"); return; }
+
+  const vs = `attribute vec2 p; void main(){ gl_Position = vec4(p, 0.0, 1.0); }`;
+  const fs = `
+    precision mediump float;
+    uniform vec2 uRes; uniform float uTime; uniform vec2 uMouse; uniform float uHover;
+    uniform vec3 uDot; uniform vec3 uAccent; uniform float uGap; uniform float uDpr;
+    float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+    float noise(vec2 p){
+      vec2 i = floor(p), f = fract(p); vec2 u = f*f*(3.0-2.0*f);
+      return mix(mix(hash(i), hash(i+vec2(1,0)), u.x), mix(hash(i+vec2(0,1)), hash(i+vec2(1,1)), u.x), u.y);
+    }
+    void main(){
+      vec2 px = gl_FragCoord.xy;
+      vec2 cell = floor(px / uGap);
+      vec2 center = (cell + 0.5) * uGap;
+      vec2 uv = center / uRes.y;
+      // slow drifting field, like a breath
+      float n = noise(uv * 3.2 + vec2(uTime * 0.035, -uTime * 0.025));
+      n = smoothstep(0.25, 0.85, n);
+      // soft ripple around the pointer
+      float d = distance(center, uMouse) / (uRes.y * 0.28);
+      float ring = exp(-d * d * 2.2) * uHover;
+      float wave = 0.5 + 0.5 * sin(d * 9.0 - uTime * 1.6);
+      float r = uDpr * (0.55 + 1.05 * n + 1.25 * ring * wave);
+      float a = smoothstep(r + 0.9 * uDpr, r - 0.2 * uDpr, distance(px, center));
+      float alpha = a * (0.10 + 0.20 * n + 0.45 * ring);
+      vec3 col = mix(uDot, uAccent, clamp(ring * 1.1, 0.0, 1.0));
+      gl_FragColor = vec4(col * alpha, alpha);
+    }`;
+  const sh = (type, src) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return s; };
+  const prog = gl.createProgram();
+  gl.attachShader(prog, sh(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) { document.documentElement.classList.add("no-webgl"); return; }
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(prog, "p");
+  gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+  const U = (n) => gl.getUniformLocation(prog, n);
+  const u = { res: U("uRes"), time: U("uTime"), mouse: U("uMouse"), hover: U("uHover"), dot: U("uDot"), accent: U("uAccent"), gap: U("uGap"), dpr: U("uDpr") };
+  gl.enable(gl.BLEND);
+  gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+
+  const readColors = () => {
+    const css = getComputedStyle(document.documentElement);
+    const rgb = (v) => css.getPropertyValue(v).split(",").map((x) => parseFloat(x) / 255);
+    gl.uniform3fv(u.dot, rgb("--dot"));
+    gl.uniform3fv(u.accent, rgb("--dot-accent"));
+  };
+  readColors();
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { readColors(); draw(performance.now()); });
+
+  let dpr = 1, w = 0, h = 0;
+  const resize = () => {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = canvas.clientWidth; h = canvas.clientHeight;
+    canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    gl.uniform2f(u.res, canvas.width, canvas.height);
+    gl.uniform1f(u.gap, 20 * dpr);
+    gl.uniform1f(u.dpr, dpr);
+  };
+  new ResizeObserver(() => { resize(); draw(performance.now()); }).observe(canvas);
+  resize();
+
+  // pointer, eased so the ripple trails the cursor instead of snapping
+  const target = { x: -9999, y: -9999, hover: 0 }, cur = { x: -9999, y: -9999, hover: 0 };
+  const hero = canvas.parentElement;
+  hero.addEventListener("pointermove", (e) => {
+    const r = canvas.getBoundingClientRect();
+    target.x = (e.clientX - r.left) * dpr;
+    target.y = (r.height - (e.clientY - r.top)) * dpr;
+    if (cur.x < -999) { cur.x = target.x; cur.y = target.y; }
+    target.hover = 1;
+  });
+  hero.addEventListener("pointerleave", () => { target.hover = 0; });
+
+  const start = performance.now();
+  function draw(now) {
+    const k = 0.08;
+    cur.x += (target.x - cur.x) * k;
+    cur.y += (target.y - cur.y) * k;
+    cur.hover += (target.hover - cur.hover) * 0.05;
+    gl.uniform2f(u.mouse, cur.x, cur.y);
+    gl.uniform1f(u.hover, cur.hover);
+    gl.uniform1f(u.time, reduce.matches ? 12.0 : (now - start) / 1000);
+    gl.clearColor(0, 0, 0, 0);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  }
+
+  // animate only while visible, the tab is active and motion is allowed
+  let raf = 0, visible = true;
+  const loop = (now) => { draw(now); raf = requestAnimationFrame(loop); };
+  const update = () => {
+    cancelAnimationFrame(raf);
+    if (visible && !document.hidden && !reduce.matches) raf = requestAnimationFrame(loop);
+    else draw(performance.now());
+  };
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; update(); }).observe(canvas);
+  document.addEventListener("visibilitychange", update);
+  reduce.addEventListener("change", update);
+  update();
+})();
+</script>
+</body>
+</html>

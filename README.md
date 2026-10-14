@@ -5,14 +5,16 @@
 **One command from a fresh Mac to my desk.**<br>
 My macOS setup, managed with chezmoi: one public repo for my personal and my work Mac, with secrets kept in 1Password.
 
+[![Release](https://img.shields.io/github/v/release/nimble-123/dotfiles?style=flat-square&color=3d3bf3)](https://github.com/nimble-123/dotfiles/releases/latest)
 [![macOS](https://img.shields.io/badge/macOS-Apple_Silicon-000000?style=flat-square&logo=apple&logoColor=white)](#quick-start)
 [![chezmoi](https://img.shields.io/badge/managed_with-chezmoi-4B91E2?style=flat-square)](https://chezmoi.io)
 [![Homebrew](https://img.shields.io/badge/Homebrew-Brewfile-FBB040?style=flat-square&logo=homebrew&logoColor=black)](Brewfile)
 [![1Password](https://img.shields.io/badge/SSH_%26_signing-1Password-0094F5?style=flat-square&logo=1password&logoColor=white)](#ssh--commit-signing)
 [![gitleaks](https://img.shields.io/badge/secrets-gitleaks-E34F26?style=flat-square)](#security)
+[![Conventional Commits](https://img.shields.io/badge/Conventional_Commits-1.0.0-FE5196?style=flat-square&logo=conventionalcommits&logoColor=white)](https://www.conventionalcommits.org/en/v1.0.0/)
 [![Last commit](https://img.shields.io/github/last-commit/nimble-123/dotfiles?style=flat-square)](https://github.com/nimble-123/dotfiles/commits/main)
 
-[Quick start](#quick-start) · [What's inside](#whats-inside) · [Personal vs. work](#personal-vs-work) · [Daily workflow](#daily-workflow) · [Security](#security) · [Manual steps](#manual-steps)
+[Website](https://nimble-123.github.io/dotfiles/) · [Quick start](#quick-start) · [What's inside](#whats-inside) · [Personal vs. work](#personal-vs-work) · [Daily workflow](#daily-workflow) · [Security](#security) · [Releases](#releases) · [Manual steps](#manual-steps)
 
 </div>
 
@@ -29,17 +31,10 @@ curl -fsSL https://raw.githubusercontent.com/nimble-123/dotfiles/main/bootstrap.
 
 That's it. The script installs Xcode Command Line Tools, Homebrew and chezmoi, clones this repo and asks three questions: your email, whether this is the work Mac, and your SSH signing key. Before it touches anything it shows `chezmoi diff` and waits for a **yes**. You can safely run it again at any time.
 
-```mermaid
-flowchart LR
-    A[bootstrap.sh] --> B[Xcode CLT]
-    B --> C[Homebrew]
-    C --> D[chezmoi init]
-    D --> E{chezmoi diff<br>apply?}
-    E -- yes --> F[10 · brew bundle]
-    F --> G[dotfiles]
-    G --> H[20 · macOS defaults]
-    H --> I[30 · Dock]
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/bootstrap-dark.svg">
+  <img alt="Bootstrap flow: the one-liner installs Xcode Command Line Tools and Homebrew, runs chezmoi init, shows a diff, and only after you confirm runs brew bundle, writes the dotfiles, applies macOS defaults and sets up the Dock." src="docs/assets/bootstrap.svg" width="860">
+</picture>
 
 > [!TIP]
 > **No admin rights?** Homebrew needs them once, to create `/opt/homebrew`. If Homebrew is missing on a standard account, bootstrap stops and tells you what to ask IT for. Nothing else uses `sudo`.
@@ -76,7 +71,9 @@ flowchart LR
 │   ├── run_onchange_before_10-brew.sh.tmpl    # reruns when a Brewfile changes
 │   ├── run_onchange_after_20-macos.sh.tmpl    # defaults write
 │   └── run_onchange_after_30-dock.sh          # Dock layout
-├── .githooks/pre-commit             # gitleaks
+├── .githooks/                       # pre-commit (gitleaks), commit-msg (Conventional Commits)
+├── .github/workflows/               # release-please
+├── docs/                            # website + diagrams
 ├── dot_zshrc · dot_zprofile · dot_zshenv · dot_gitconfig.tmpl
 ├── create_dot_gitconfig.work.tmpl   # created once on the work Mac, then yours
 ├── dot_config/                      # starship, zsh, git, btop, fastfetch, …
@@ -88,6 +85,11 @@ flowchart LR
 Scripts are `run_onchange`: each one embeds a hash of what it depends on and only runs again when that changes. Edit a Brewfile, run `chezmoi apply`, and only `brew bundle` runs.
 
 ## Personal vs. work
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/layers-dark.svg">
+  <img alt="Layer stack: 1Password holds keys, the public repo holds the shared base, the work flag picks per-Mac differences, and untracked local files hold anything company-specific." src="docs/assets/layers.svg" width="860">
+</picture>
 
 On the first `chezmoi init` you're asked a few questions. The answers are stored **only locally** in `~/.config/chezmoi/chezmoi.toml`, never in this repo.
 
@@ -143,9 +145,29 @@ The work Mac can use a different 1Password account and key. Set `signingkey` in 
 ## Security
 
 - **Secrets only via 1Password:** `{{ onepasswordRead "op://Vault/Item/field" }}` in a template, never in plain text.
-- **Pre-commit hook:** [`.githooks/pre-commit`](.githooks/pre-commit) runs `gitleaks` on every staged change. `bootstrap.sh` turns it on with `git config core.hooksPath .githooks`.
+- **Pre-commit hook:** [`.githooks/pre-commit`](.githooks/pre-commit) runs `gitleaks` on every staged change. `bootstrap.sh` turns the hooks on with `git config core.hooksPath .githooks`.
 - **Full history scan:** `gitleaks git .`
 - **Ignored by design:** `~/.ssh` keys and `known_hosts`, `gh`, `op` and `gnupg` config.
+
+## Releases
+
+Versions and the [changelog](CHANGELOG.md) are generated by [release-please](https://github.com/googleapis/release-please) from commit messages, so every commit follows [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/):
+
+```text
+feat(brew): add raycast
+fix(macos): keep key repeat on MDM-managed Macs
+docs: explain the work flag
+```
+
+| Type | Effect |
+| --- | --- |
+| `feat` | minor release, listed under Features |
+| `fix` | patch release, listed under Bug Fixes |
+| `feat!` or a `BREAKING CHANGE:` footer | major release |
+| `docs`, `refactor`, `perf`, `build` | listed in the changelog |
+| `ci`, `chore`, `style`, `test` | hidden |
+
+A `commit-msg` hook in [`.githooks/`](.githooks/) rejects anything else. After each push to `main`, release-please keeps a release PR open. Merging it tags the version and publishes the GitHub release.
 
 ## Manual steps
 
