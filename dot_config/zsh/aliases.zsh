@@ -25,5 +25,25 @@ alias gd="git diff"
 alias gds="git diff --staged"
 alias glog="git log --oneline --decorate --graph -n 20"
 
+# ----- git, kurz (gp bleibt git push) -----
+alias gits="git status"
+alias gitd="git diff"
+alias gitl="git lg"
+alias gita="git add ."
+alias gitc="cz commit"
+alias gitb="git branch --sort=-committerdate"
+alias gitconfig="code ~/.gitconfig"
+
+# ----- shell & ssh -----
+alias zshconfig="code ~/.zshrc"
+alias zshsource="source ~/.zshrc"
+alias ohmyzsh="cd ~/.oh-my-zsh"
+alias sshhome="cd ~/.ssh"
+alias sshconfig="code ~/.ssh/config"
+
+# ----- sonstiges -----
+alias c="clear"
+alias cc="claude"
+alias ip="ipconfig getifaddr en0"
 alias cd..="cd .."
 alias bu="brew update && brew upgrade && brew cleanup"

@@ -3,16 +3,19 @@ ZINIT_HOME="$HOME/.local/share/zinit/zinit.git"
 [ -d "$ZINIT_HOME" ] || git clone --depth=1 https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 source "$ZINIT_HOME/zinit.zsh"
 
+# zsh-completions vor compinit (fpath), fzf-tab nach compinit
+zinit light zsh-users/zsh-completions
+
+# ---- completions (nach den Completion-Plugins, vor bashcompinit) ----
+autoload -U compinit && compinit
+autoload -U +X bashcompinit && bashcompinit
+
+zinit light Aloxaf/fzf-tab
 zinit light zsh-users/zsh-autosuggestions
 zinit light zdharma-continuum/fast-syntax-highlighting
-zinit light zsh-users/zsh-completions
-zinit light Aloxaf/fzf-tab
 
 # ---- prompt ----
 eval "$(starship init zsh)"
-
-# ---- navigation ----
-eval "$(zoxide init zsh)"
 
 # ---- direnv ----
 eval "$(direnv hook zsh)"
@@ -20,11 +23,32 @@ eval "$(direnv hook zsh)"
 # ---- quality-of-life ----
 export EDITOR="code -w"
 
-export FZF_DEFAULT_COMMAND="fd --hidden --follow --exclude .git"
+export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type d --hidden --follow --exclude .git"
+
+# fzf (Ctrl-R Historie, Ctrl-T Dateien, Alt-C Ordner) und zoxide nur im echten Terminal:
+# ohne TTY (Skripte, Agent-Shells) brechen die ZLE-Bindings
+if [[ -o interactive && -t 0 ]]; then
+  source <(fzf --zsh)
+
+  # z <teilname> springt, zf wählt interaktiv (zi ist von zinit belegt, cd bleibt unverändert)
+  eval "$(zoxide init zsh)"
+  alias zf="__zoxide_zi"
+fi
 
 # extra config
 [ -f "$HOME/.config/zsh/aliases.zsh" ] && source "$HOME/.config/zsh/aliases.zsh"
+
+# ---- eigene Binaries ----
+if [ -d "$HOME/bin" ]; then
+  export PATH="$HOME/bin:$PATH"
+fi
+
+# ---- terraform completion (nur wenn terraform installiert ist) ----
+if command -v terraform >/dev/null 2>&1; then
+  complete -o nospace -C "$(command -v terraform)" terraform
+fi
 
 # ---- nvm ----
 export NVM_DIR="$HOME/.nvm"
