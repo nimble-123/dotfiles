@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Erzwingt Conventional Commits: type(scope)!: Beschreibung
+set -euo pipefail
+first=$(head -n1 "$1")
+types="feat|fix|perf|refactor|docs|build|ci|chore|style|test|revert"
+if [[ "$first" =~ ^(Merge|Revert|fixup!|squash!) ]] || [[ "$first" =~ ^($types)(\([a-z0-9._/-]+\))?!?:\ .+ ]]; then
+  exit 0
+fi
+echo "Commit-Message folgt nicht Conventional Commits:" >&2
+echo "  $first" >&2
+echo "Format: <type>(<scope>)!: <Beschreibung>   Typen: ${types//|/, }" >&2
+exit 1
