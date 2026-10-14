@@ -5,7 +5,7 @@
 {{- if $work -}}
 {{-   $workEmail = promptStringOnce . "workEmail" "Git-E-Mail (Arbeit)" -}}
 {{- end -}}
-{{- $sshSigningKey := promptStringOnce . "sshSigningKey" "SSH Public Key fürs Commit-Signing (aus 1Password)" "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAq/zobMpnNbw3J69ZuWUT3o6zTnzQcdf8V/6KYj2h4q" -}}
+{{- $sshSigningKey := promptStringOnce . "sshSigningKey" "SSH Public Key fürs Commit-Signing (1Password privat, KeePassXC Arbeit)" "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAq/zobMpnNbw3J69ZuWUT3o6zTnzQcdf8V/6KYj2h4q" -}}
 
 [data]
     work = {{ $work }}

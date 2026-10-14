@@ -1,5 +1,10 @@
 # Nur auf dem privaten Mac (zusätzlich zu Brewfile)
 
+# --- Passwort-Manager, SSH-Agent & Commit-Signing ----------------------------
+cask "1password"
+cask "1password-cli"
+mas "1Password for Safari", id: 1569813296
+
 # --- Kommunikation -----------------------------------------------------------
 cask "discord"
 cask "telegram-desktop"

@@ -1,5 +1,8 @@
 # Nur auf dem Arbeits-Mac (zusätzlich zu Brewfile)
 
+# --- Passwort-Manager, SSH-Agent & Commit-Signing ----------------------------
+cask "keepassxc"
+
 # --- Taps --------------------------------------------------------------------
 tap "cloudfoundry/tap", trusted: true
 tap "hashicorp/tap", trusted: true

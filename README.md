@@ -3,13 +3,14 @@
 # dotfiles
 
 **One command from a fresh Mac to my desk.**<br>
-My macOS setup, managed with chezmoi: one public repo for my personal and my work Mac, with secrets kept in 1Password.
+My macOS setup, managed with chezmoi: one public repo for my personal and my work Mac, with secrets kept in a password manager: 1Password at home, KeePassXC at work.
 
 [![Release](https://img.shields.io/github/v/release/nimble-123/dotfiles?style=flat-square&color=3d3bf3)](https://github.com/nimble-123/dotfiles/releases/latest)
 [![macOS](https://img.shields.io/badge/macOS-Apple_Silicon-000000?style=flat-square&logo=apple&logoColor=white)](#quick-start)
 [![chezmoi](https://img.shields.io/badge/managed_with-chezmoi-4B91E2?style=flat-square)](https://chezmoi.io)
 [![Homebrew](https://img.shields.io/badge/Homebrew-Brewfile-FBB040?style=flat-square&logo=homebrew&logoColor=black)](Brewfile)
-[![1Password](https://img.shields.io/badge/SSH_%26_signing-1Password-0094F5?style=flat-square&logo=1password&logoColor=white)](#ssh--commit-signing)
+[![1Password](https://img.shields.io/badge/personal-1Password-0094F5?style=flat-square&logo=1password&logoColor=white)](#ssh--commit-signing)
+[![KeePassXC](https://img.shields.io/badge/work-KeePassXC-6CAC4D?style=flat-square&logo=keepassxc&logoColor=white)](#ssh--commit-signing)
 [![gitleaks](https://img.shields.io/badge/secrets-gitleaks-E34F26?style=flat-square)](#security)
 [![Conventional Commits](https://img.shields.io/badge/Conventional_Commits-1.0.0-FE5196?style=flat-square&logo=conventionalcommits&logoColor=white)](https://www.conventionalcommits.org/en/v1.0.0/)
 [![Last commit](https://img.shields.io/github/last-commit/nimble-123/dotfiles?style=flat-square)](https://github.com/nimble-123/dotfiles/commits/main)
@@ -19,7 +20,7 @@ My macOS setup, managed with chezmoi: one public repo for my personal and my wor
 </div>
 
 > [!NOTE]
-> This repo is public on purpose, so nothing in it is secret: no private keys, tokens, internal hostnames or company URLs. Anything sensitive lives in [local, untracked files](#local-untracked-files) or in 1Password.
+> This repo is public on purpose, so nothing in it is secret: no private keys, tokens, internal hostnames or company URLs. Anything sensitive lives in [local, untracked files](#local-untracked-files) or in the password manager.
 
 ## Quick start
 
@@ -43,7 +44,7 @@ That's it. The script installs Xcode Command Line Tools, Homebrew and chezmoi, c
 
 - **One command.** A new Mac goes from setup assistant to a working terminal, editor and toolchain without a checklist of 40 installs.
 - **Two Macs, one repo.** Shared defaults with a single `work` flag for the differences, so the personal and work setups don't drift apart.
-- **Public, but safe.** Secrets stay in 1Password. Company specifics stay in local files. Every commit runs through gitleaks.
+- **Public, but safe.** Secrets stay in 1Password or KeePassXC. Company specifics stay in local files. Every commit runs through gitleaks.
 - **Diff before apply.** Nothing is overwritten silently.
 - **Boring on purpose.** Plain chezmoi, plain Brewfiles and plain shell scripts, with no framework on top.
 
@@ -52,8 +53,8 @@ That's it. The script installs Xcode Command Line Tools, Homebrew and chezmoi, c
 | | |
 | --- | --- |
 | **Shell** | zsh with [zinit](https://github.com/zdharma-continuum/zinit) (autosuggestions, syntax highlighting, fzf-tab), [starship](https://starship.rs) prompt, zoxide, direnv, fzf, nvm, plus modern aliases (`eza`, `bat`, `fd`, `rg`). zinit installs itself on first launch. |
-| **Git** | Commits and tags signed with SSH through 1Password, `gh` as the credential helper, a global ignore file and short aliases. |
-| **SSH** | Uses the 1Password SSH agent and lists only public hosts such as github.com. Everything else is pulled in from `~/.ssh/config.d/*`. |
+| **Git** | Commits and tags signed with SSH keys from the password manager, `gh` as the credential helper, a global ignore file and short aliases. |
+| **SSH** | Keys come from the 1Password SSH agent (personal) or KeePassXC (work). The config lists only public hosts such as github.com. Everything else is pulled in from `~/.ssh/config.d/*`. |
 | **Apps** | [Warp](https://warp.dev) `settings.toml`, VS Code `settings.json` plus 110 extensions, btop, fastfetch, linearmouse and hazelnut. |
 | **Packages** | Three Brewfiles: [`Brewfile`](Brewfile) for both Macs, [`Brewfile.private`](Brewfile.private) and [`Brewfile.work`](Brewfile.work), each grouped by category. They cover formulae, casks, Mac App Store apps, VS Code extensions, and npm, uv and cargo tools. |
 | **macOS** | Finder, Dock, keyboard, screenshots and save dialogs set via `defaults write`. MDM-tolerant: a locked setting is reported at the end instead of failing the run. |
@@ -88,17 +89,17 @@ Scripts are `run_onchange`: each one embeds a hash of what it depends on and onl
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/assets/layers-dark.svg">
-  <img alt="Layer stack: 1Password holds keys, the public repo holds the shared base, the work flag picks per-Mac differences, and untracked local files hold anything company-specific." src="docs/assets/layers.svg" width="860">
+  <img alt="Layer stack: 1Password or KeePassXC holds keys, the public repo holds the shared base, the work flag picks per-Mac differences, and untracked local files hold anything company-specific." src="docs/assets/layers.svg" width="860">
 </picture>
 
 On the first `chezmoi init` you're asked a few questions. The answers are stored **only locally** in `~/.config/chezmoi/chezmoi.toml`, never in this repo.
 
 | Variable | What it does |
 | --- | --- |
-| `work` | `true` on the work Mac: installs `Brewfile.work` instead of `Brewfile.private`, adds the `includeIf` for `~/work/` and creates `~/.gitconfig.work` |
+| `work` | `true` on the work Mac: installs `Brewfile.work` instead of `Brewfile.private`, uses KeePassXC instead of 1Password for SSH and signing, adds the `includeIf` for `~/work/` and creates `~/.gitconfig.work` |
 | `email` | Personal Git email, the default for every repo |
 | `workEmail` | Work Mac only: the email for repos under `~/work/` |
-| `sshSigningKey` | Public key from 1Password used to sign commits |
+| `sshSigningKey` | Public SSH key used to sign commits (from 1Password or KeePassXC) |
 
 Templates branch on the flag with `{{ if .work }} … {{ end }}`, and `.chezmoiignore` decides which files exist on which Mac. To change an answer later, run `chezmoi edit-config` and then `chezmoi apply`.
 
@@ -129,22 +130,28 @@ Company-specific things such as hostnames, IPs, proxies, registry URLs or intern
 
 ## SSH & commit signing
 
-There are no private keys on disk. The 1Password SSH agent serves them, and every commit is signed with the same key:
+There are no private keys on disk. A password manager serves them through an SSH agent, and every commit is signed with that key:
+
+| | Personal Mac | Work Mac |
+| --- | --- | --- |
+| Password manager | 1Password | KeePassXC |
+| SSH agent | 1Password agent (`IdentityAgent` in `~/.ssh/config`) | KeePassXC adds keys to the macOS `ssh-agent` |
+| Commit signing | `op-ssh-sign` | `ssh-keygen` through the agent |
 
 ```ini
 [gpg]
   format = ssh
 [gpg "ssh"]
-  program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+  program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign   # personal Mac only
 [commit]
   gpgsign = true
 ```
 
-The work Mac can use a different 1Password account and key. Set `signingkey` in `~/.gitconfig.work`, and it applies to every repo under `~/work/`.
+Need a different key just for work repos? Set `signingkey` in `~/.gitconfig.work`, and it applies to every repo under `~/work/`.
 
 ## Security
 
-- **Secrets only via 1Password:** `{{ onepasswordRead "op://Vault/Item/field" }}` in a template, never in plain text.
+- **Secrets only via the password manager:** `{{ onepasswordRead "op://Vault/Item/field" }}` on the personal Mac, `{{ keepassxcAttribute "Entry" "Field" }}` on the work Mac, never in plain text.
 - **Pre-commit hook:** [`.githooks/pre-commit`](.githooks/pre-commit) runs `gitleaks` on every staged change. `bootstrap.sh` turns the hooks on with `git config core.hooksPath .githooks`.
 - **Full history scan:** `gitleaks git .`
 - **Ignored by design:** `~/.ssh` keys and `known_hosts`, `gh`, `op` and `gnupg` config.
@@ -173,7 +180,8 @@ A `commit-msg` hook in [`.githooks/`](.githooks/) rejects anything else. After e
 
 Some things can't be scripted (yet):
 
-- [ ] **1Password:** sign in, then Settings → Developer → turn on **SSH agent** and **CLI integration**
+- [ ] **Personal Mac, 1Password:** sign in, then Settings → Developer → turn on **SSH agent** and **CLI integration**
+- [ ] **Work Mac, KeePassXC:** open the database, then Settings → SSH Agent → **enable SSH agent integration**. In each key entry, turn on **Add key to agent when database is opened**
 - [ ] Add the SSH key to GitHub as both an **authentication** and a **signing** key, then run `ssh -T git@github.com`
 - [ ] **Warp:** Settings → Account → turn **Settings Sync off**, so it doesn't fight chezmoi
 - [ ] **VS Code:** leave Settings Sync off, since chezmoi owns `settings.json`

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg viewBox="0 0 960 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="layers-title layers-desc" id="layers-root">
 <title id="layers-title">Personal vs. work: what lives where</title>
-<desc id="layers-desc">Layer stack of the dotfiles: 1Password holds keys, the public repo holds the shared base, the work flag picks per-Mac differences, and untracked local files hold anything company-specific.</desc>
+<desc id="layers-desc">Layer stack of the dotfiles: 1Password or KeePassXC holds keys, the public repo holds the shared base, the work flag picks per-Mac differences, and untracked local files hold anything company-specific.</desc>
   <defs>
       <style>@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500;600&amp;family=Noto+Serif:ital@0;1&amp;family=Noto+Sans+KR:wght@400;500;600&amp;family=Noto+Serif+KR:wght@400&amp;family=Noto+Sans+TC:wght@400;500;600&amp;family=Noto+Serif+TC:wght@400&amp;display=swap');
       #layers-root { color: #14182e; font-family: 'Schibsted Grotesk', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; }
@@ -32,8 +32,8 @@
 <text x="900" y="228" fill="#4a5072" font-size="10" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="end">public</text>
 <rect x="136" y="256" width="784" height="64" fill="#e7e9f1"/>
 <text x="156" y="292" fill="#4a5072" font-size="8" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="start" letter-spacing="0.14em">VAULT</text>
-<text x="268" y="286" fill="#14182e" font-size="16" font-family="'Schibsted Grotesk', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" text-anchor="start" font-weight="600">1Password</text>
-<text x="268" y="304" fill="#4a5072" font-size="9" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="start">SSH keys · commit signing · onepasswordRead</text>
+<text x="268" y="286" fill="#14182e" font-size="16" font-family="'Schibsted Grotesk', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" text-anchor="start" font-weight="600">Password manager</text>
+<text x="268" y="304" fill="#4a5072" font-size="9" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="start">1Password (personal) · KeePassXC (work) · SSH keys, signing</text>
 <text x="900" y="292" fill="#4a5072" font-size="10" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="end">never in git</text>
 <rect x="136" y="64" width="784" height="256" fill="none" stroke="#14182e" stroke-opacity="0.30" stroke-width="1"/>
 <text x="136" y="372" fill="#4a5072" font-size="8" font-family="'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="start" letter-spacing="0.14em">FOCAL LAYER</text>

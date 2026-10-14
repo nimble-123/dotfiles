@@ -8,8 +8,7 @@ tap "hjr265/gittop", trusted: true
 tap "ricardodantas/tap", trusted: true
 
 # --- Sicherheit & Secrets ----------------------------------------------------
-cask "1password"
-cask "1password-cli"
+# Passwort-Manager: 1Password in Brewfile.private, KeePassXC in Brewfile.work
 brew "gitleaks"
 brew "age"
 
@@ -97,7 +96,6 @@ cask "obsidian"
 cask "figma"
 
 # --- Mac App Store (braucht Apple-ID-Login im App Store) ---------------------
-mas "1Password for Safari", id: 1569813296
 mas "Amphetamine", id: 937984704
 mas "Keynote", id: 409183694
 mas "Numbers", id: 409203825
