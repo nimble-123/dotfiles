@@ -25,7 +25,7 @@ dw com.apple.finder DisableAllAnimations -bool true
 dw com.apple.finder ShowHardDrivesOnDesktop -bool true
 dw com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
 dw com.apple.finder NewWindowTarget -string "PfLo"
-dw com.apple.finder NewWindowTargetPath -string "file://{{ .chezmoi.homeDir }}/"
+dw com.apple.finder NewWindowTargetPath -string "file://{{ .chezmoi.homeDir }}/Downloads/"
 dw NSGlobalDomain com.apple.springing.enabled -bool true
 dw NSGlobalDomain com.apple.springing.delay -float 0.3
 dw com.apple.desktopservices DSDontWriteNetworkStores -bool true
@@ -35,9 +35,8 @@ chflags nohidden "$HOME/Library" 2>/dev/null || failed+=("chflags nohidden ~/Lib
 ###############################################################################
 # Dock & Hot Corners
 ###############################################################################
-dw com.apple.dock tilesize -int 75
-dw com.apple.dock magnification -bool true
-dw com.apple.dock largesize -int 128
+dw com.apple.dock tilesize -int 50
+dw com.apple.dock magnification -bool false
 dw com.apple.dock autohide -bool false
 dw com.apple.dock autohide-delay -float 0
 dw com.apple.dock autohide-time-modifier -float 0
@@ -52,11 +51,11 @@ dw com.apple.dock enable-spring-load-actions-on-all-items -bool true
 dw com.apple.dock mru-spaces -bool false
 dw com.apple.dock expose-animation-duration -float 0.1
 dw com.apple.dock expose-group-by-app -bool false
-# unten rechts: Schreibtisch, unten links: Bildschirmschoner
-dw com.apple.dock wvous-br-corner -int 4
-dw com.apple.dock wvous-br-modifier -int 0
-dw com.apple.dock wvous-bl-corner -int 5
-dw com.apple.dock wvous-bl-modifier -int 0
+# Hot Corners: alle vier aus (1 = "–" in den Systemeinstellungen)
+for corner in tl tr bl br; do
+  dw com.apple.dock "wvous-$corner-corner" -int 1
+  dw com.apple.dock "wvous-$corner-modifier" -int 0
+done
 
 ###############################################################################
 # Tastatur & Texteingabe
