@@ -4,23 +4,84 @@
 cask "keepassxc"
 
 # --- Taps --------------------------------------------------------------------
+tap "azure/bicep", trusted: true
+tap "azure/functions", trusted: true
 tap "cloudfoundry/tap", trusted: true
 tap "hashicorp/tap", trusted: true
+tap "nimble-123/tap", trusted: true
 tap "sap-samples/sap-devs-cli", "https://github.com/SAP-samples/sap-devs-cli", trusted: true
+tap "terraform-linters/tap", trusted: true
 
 # --- SAP & Cloud -------------------------------------------------------------
 cask "btp"
-cask "azure-cli"
+brew "azure-cli"
+brew "azure/bicep/bicep"
+brew "azure/functions/azure-functions-core-tools@4"
 brew "cloudfoundry/tap/cf-cli@8"
 cask "sap-samples/sap-devs-cli/sap-devs"
 
 # --- Infrastructure as Code --------------------------------------------------
 brew "hashicorp/tap/terraform"
 brew "terramate"
+cask "terraform-linters/tap/tflint"
 
 # --- API-Tools ---------------------------------------------------------------
 cask "postman"
 cask "bruno"
 
-# --- Kommunikation -----------------------------------------------------------
+# --- Kommunikation & Medien --------------------------------------------------
 cask "slack"
+cask "spotify"
+
+# --- Entwicklung -------------------------------------------------------------
+brew "go"
+brew "pnpm"
+brew "commitizen"
+cask "dotnet-sdk"
+cask "iterm2"
+cask "nimble-123/tap/skills-hub"
+cask "nimble-123/tap/takt"
+
+# --- Diagramme, Doku & Terminal-Spielereien ----------------------------------
+brew "graphviz"
+brew "mermaid-cli"
+brew "marp-cli"
+brew "poppler"
+brew "cmatrix"
+brew "lstr"
+brew "taskwarrior-tui"
+
+# --- System & Peripherie -----------------------------------------------------
+cask "caffeine"
+cask "logitech-g-hub"
+cask "logitune"
+
+# --- Paketmanager-Pakete (nur wenn das Tool schon da ist) --------------------
+uv "markitdown"
+
+if system("command -v npm >/dev/null 2>&1")
+  npm "@abaplint/cli"
+  npm "@sap-ux/generator-odata-downloader"
+  npm "@sap/generator-adaptation-project"
+  npm "@sap/generator-cap-project"
+  npm "@sap/generator-fiori"
+  npm "@tobilu/qmd"
+  npm "@usebruno/cli"
+  npm "generator-easy-ui5"
+  npm "git-truck"
+  npm "mta"
+  npm "oxfmt"
+  npm "prettier"
+  npm "typescript"
+end
+
+# --- VS Code Extensions (zusätzlich zur Basis) -------------------------------
+vscode "bruno-api-client.bruno"
+vscode "jebbs.plantuml"
+vscode "ms-azure-devops.azure-pipelines"
+vscode "ms-azuretools.vscode-apimanagement"
+vscode "ms-azuretools.vscode-azureterraform"
+vscode "ms-dotnettools.csdevkit"
+vscode "ms-dotnettools.csharp"
+vscode "redhat.vscode-xml"
+vscode "rust-lang.rust-analyzer"

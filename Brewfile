@@ -65,14 +65,13 @@ brew "xcodegen"
 cask "temurin"
 
 # --- AI ----------------------------------------------------------------------
-brew "codex"
+cask "codex"
 brew "agent-browser"
 brew "llmfit"
 brew "anomalyco/tap/opencode"
 cask "claude"
 cask "claude-code@latest"
 cask "chatgpt"
-cask "chatbox"
 
 # --- Terminal & Editor -------------------------------------------------------
 cask "warp"
@@ -87,20 +86,18 @@ cask "font-fira-sans"
 cask "font-hack-nerd-font"
 
 # --- Produktivität -----------------------------------------------------------
-cask "alt-tab"
 cask "maccy"
 cask "shottr"
 cask "stats"
 cask "linearmouse"
 cask "obsidian"
+cask "whatsapp"
 cask "figma"
 
 # --- Mac App Store (braucht Apple-ID-Login im App Store) ---------------------
-mas "Amphetamine", id: 937984704
 mas "Keynote", id: 409183694
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
-mas "Lightshot Screenshot", id: 526298438
 mas "Unzip One", id: 1127253508
 
 # --- Paketmanager-Pakete (nur wenn das Tool schon da ist) --------------------

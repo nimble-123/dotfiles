@@ -8,13 +8,16 @@ mas "1Password for Safari", id: 1569813296
 # --- Kommunikation -----------------------------------------------------------
 cask "discord"
 cask "telegram-desktop"
-mas "WhatsApp", id: 310633997
 
 # --- Medien ------------------------------------------------------------------
 cask "spotify"
 cask "vlc"
 cask "obs"
 cask "gifox"
+
+# --- System ------------------------------------------------------------------
+# Auf dem Arbeits-Mac läuft stattdessen Caffeine (Brewfile.work)
+mas "Amphetamine", id: 937984704
 
 # --- Finanzen & Behörden -----------------------------------------------------
 mas "MoneyMoney", id: 872698314
