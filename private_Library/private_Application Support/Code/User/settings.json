@@ -65,14 +65,14 @@
   "ui5explorer.framework": "SAPUI5",
   "ui5explorer.version": "1.94.1",
   "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-  "workbench.colorTheme": "Aura Dark",
+  "workbench.colorTheme": "GitHub Light",
   "workbench.editor.highlightModifiedTabs": true,
   "workbench.iconTheme": "material-icon-theme",
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "oxc.oxc-vscode"
   },
   "[yaml]": {
     "editor.defaultFormatter": "redhat.vscode-yaml"
@@ -198,7 +198,7 @@
   "github.copilot.chat.agent.thinkingTool": true,
   "chat.mcp.gallery.enabled": true,
   "[markdown]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "oxc.oxc-vscode"
   },
   "playwright.reuseBrowser": false,
   "playwright.pickLocatorCopyToClipboard": false,
@@ -237,7 +237,16 @@
     "**/.gitea/workflows/*.yml",
     "**/.gitea/workflows/*.yaml",
     "**/.forgejo/workflows/*.yml",
-    "**/.forgejo/workflows/*.yaml"
+    "**/.forgejo/workflows/*.yaml",
+    "azure-pipelines.yml",
+    "azure-pipelines.yaml"
   ],
-  "chat.agent.sandbox.enabled": "off"
+  "chat.agent.sandbox.enabled": "off",
+  "workbench.preferredDarkColorTheme": "Aura Dark",
+  "window.autoDetectColorScheme": true,
+  "oxc.enable.oxfmt": true,
+  "oxc.enable.oxlint": true,
+  "explorer.confirmPasteNative": false,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "workbench.browser.searchEngine": "google"
 }

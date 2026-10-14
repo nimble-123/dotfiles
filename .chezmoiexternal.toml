@@ -1,0 +1,6 @@
+# Warp-Theme "Tokyo Night" (Settings verweisen auf warp-tokyo-night/tokyo_night.yml).
+# Wird von GitHub geklont statt ins Repo kopiert, weil das Theme-Repo keine Lizenzdatei hat.
+[".warp/themes/warp-tokyo-night"]
+    type = "git-repo"
+    url = "https://github.com/bart-krakowski/warp-tokyo-night.git"
+    refreshPeriod = "720h"

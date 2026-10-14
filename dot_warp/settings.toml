@@ -1,51 +1,66 @@
-[general]
-show_warning_before_quitting = false
-
 [appearance]
-spacing = "normal"
-
-[appearance.text]
-ai_font_name = "FiraCode Nerd Font Mono"
-font_size = 17.0
-notebook_font_size = 14.0
-font_name = "FiraCode Nerd Font Mono"
-match_ai_font = true
-ligature_rendering_enabled = true
+spacing = "compact"
 
 [appearance.themes]
-selected_system_themes = { dark = "dark", light = "adeberry" }
 system_theme = false
-theme = "dracula"
+theme = { custom = { name = "Tokyo Night", path = "warp-tokyo-night/tokyo_night.yml" } }
+selected_system_themes = { dark = "dracula", light = "light" }
 
-[appearance.input]
-input_mode = "waterfall"
-
-[appearance.window]
-override_blur = 30
-override_opacity = 50
-zoom_level = 90
-
-[appearance.tabs]
-workspace_decoration_visibility = "hide_fullscreen"
-show_indicators_button = true
+[appearance.vertical_tabs]
+enabled = false
 
 [appearance.icon]
 app_icon = "default"
 
-[appearance.vertical_tabs]
+[appearance.window]
+override_opacity = 85
+override_blur = 20
+zoom_level = 100
+
+[appearance.text]
+notebook_font_size = 14.0
+font_size = 13.0
+
+[appearance.tabs]
+workspace_decoration_visibility = "on_hover"
+show_indicators_button = true
+
+[general]
+default_session_mode = "agent"
+
+[agents]
+
+[agents.third_party]
+should_render_cli_agent_toolbar = true
+
+[agents.warp_agent]
+is_any_ai_enabled = false
+
+[agents.warp_agent.other]
+show_agent_notifications = true
+show_conversation_history = false
+
+[code]
+
+[code.editor]
+show_code_review_button = false
+show_project_explorer = false
+show_global_search = false
+
+[warp_drive]
 enabled = false
-primary_info = "working_directory"
-view_mode = "compact"
-display_granularity = "panes"
 
-[global_hotkey]
+[notifications]
+toast_duration_secs = 8
 
-[global_hotkey.toggle_all_windows]
-keybinding = "ctrl-delete"
-enabled = true
-
-[global_hotkey.dedicated_window]
-enabled = false
+[notifications.preferences]
+is_agent_task_completed_enabled = true
+is_long_running_enabled = true
+is_needs_attention_enabled = true
+is_password_prompt_enabled = true
+long_running_threshold = 30
+mode = "dismissed"
+play_notification_sound = true
 
 [terminal]
 osc52_clipboard_access = "write_only"
@@ -53,56 +68,6 @@ osc52_clipboard_access = "write_only"
 [terminal.input]
 input_box_type_setting = "classic"
 honor_ps1 = true
-
-[agents]
-cloud_conversation_storage_enabled = true
-
-[agents.profiles]
-agent_mode_coding_permissions = "always_allow_reading"
-
-[agents.warp_agent]
-
-[agents.warp_agent.input]
-nld_in_terminal_enabled = true
-
-[agents.execution_profiles]
-
-[agents.execution_profiles.default]
-apply_code_diffs = "agent_decides"
-ask_user_question = "always_ask"
-autosync_plans_to_warp_drive = true
-command_allowlist = []
-command_denylist = [
-  'bash(\s.*)?',
-  'fish(\s.*)?',
-  'pwsh(\s.*)?',
-  'sh(\s.*)?',
-  'zsh(\s.*)?',
-  'curl(\s.*)?',
-  'eval(\s.*)?',
-  'exec(\s.*)?',
-  'source(\s.*)?',
-  'wget(\s.*)?',
-  'dig(\s.*)?',
-  'nslookup(\s.*)?',
-  'host(\s.*)?',
-  'ssh(\s.*)?',
-  'scp(\s.*)?',
-  'rsync(\s.*)?',
-  'telnet(\s.*)?',
-  'rm(\s.*)?',
-]
-computer_use = "never"
-directory_allowlist = []
-execute_commands = "always_ask"
-mcp_allowlist = []
-mcp_denylist = []
-mcp_permissions = "agent_decides"
-name = "Default"
-read_files = "agent_decides"
-run_agents = "always_ask"
-web_search_enabled = true
-write_to_pty = "always_ask"
 
 [privacy]
 crash_reporting_enabled = false
@@ -138,25 +103,3 @@ custom_secret_regex_list = [
   { name = "Generic SK API Key", pattern = '\bsk-[a-zA-Z0-9\-]{10,100}\b' },
   { name = "Fireworks API Key", pattern = '\bfw_[a-zA-Z0-9]{24}\b' },
 ]
-
-[code]
-
-[code.indexing]
-agent_mode_codebase_context_auto_indexing = true
-
-[code.editor]
-show_global_search = false
-
-[notifications]
-
-[notifications.preferences]
-is_agent_task_completed_enabled = true
-is_long_running_enabled = true
-is_needs_attention_enabled = true
-is_password_prompt_enabled = true
-long_running_threshold = 30
-mode = "enabled"
-play_notification_sound = true
-
-[accessibility]
-accessibility_verbosity = "verbose"
